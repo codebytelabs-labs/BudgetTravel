@@ -1,8 +1,6 @@
 const express = require('express');
-const ejs = require('ejs');
 const path = require('path');
 const https = require('https');
-const fs = require('fs');
 const app = express();
 const http = require('http').Server(app);
 
