@@ -1,186 +1,182 @@
-<body>
-    <%- include('partials/_header_main') %>
-
-        <main class="main-content">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <div class="hero-content">
-                    <h1>Seyahat Planlamanın Yeni Yolu</h1>
-                    <p>Tüm seyahat planlarınızı tek bir yerde toplayın ve organize edin.</p>
-                    <div class="cta-buttons">
-                        <a href="/register" class="btn btn-primary">Ücretsiz Başla</a>
-                        <a href="/demo" class="btn btn-secondary">Nasıl Çalışır?</a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Features Section -->
-            <section class="features-section">
-                <div class="section-header">
-                    <h2>Neden BudgetTravel?</h2>
-                    <p>Seyahat deneyiminizi kolaylaştıran özellikler</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>Akıllı Planlama</h3>
-                        <p>Rezervasyonlarınızı otomatik olarak organize edin</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Detaylı Haritalar</h3>
-                        <p>Gideceğiniz yerleri interaktif haritalarda görün</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-wallet"></i>
-                        <h3>Bütçe Takibi</h3>
-                        <p>Harcamalarınızı kontrol altında tutun</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-share-alt"></i>
-                        <h3>Kolay Paylaşım</h3>
-                        <p>Planlarınızı arkadaşlarınızla paylaşın</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Popular Routes Section -->
-            <section class="routes-section">
-                <div class="section-header">
-                    <h2>Popüler Güzergahlar</h2>
-                    <p>En çok tercih edilen seyahat rotaları</p>
-                </div>
-                <div class="routes-grid">
-                    <div class="route-card">
-                        <div class="route-image">
-                            <img src="/images/istanbul-cappadocia.jpg" alt="İstanbul - Kapadokya">
-                            <div class="route-price">₺2,499'den başlayan</div>
-                        </div>
-                        <div class="route-content">
-                            <h3>İstanbul - Kapadokya</h3>
-                            <p>4 Gün 3 Gece</p>
-                            <ul class="route-features">
-                                <li><i class="fas fa-hotel"></i> 3 Gece Konaklama</li>
-                                <li><i class="fas fa-plane"></i> Uçak Bileti Dahil</li>
-                                <li><i class="fas fa-map-marked-alt"></i> Tüm Turlar Dahil</li>
-                            </ul>
-                            <a href="/routes/istanbul-cappadocia" class="btn btn-secondary">Detayları Gör</a>
-                        </div>
-                    </div>
-                    <div class="route-card">
-                        <div class="route-image">
-                            <img src="/images/antalya-fethiye.jpg" alt="Antalya - Fethiye">
-                            <div class="route-price">₺1,999'den başlayan</div>
-                        </div>
-                        <div class="route-content">
-                            <h3>Antalya - Fethiye</h3>
-                            <p>5 Gün 4 Gece</p>
-                            <ul class="route-features">
-                                <li><i class="fas fa-hotel"></i> 4 Gece Konaklama</li>
-                                <li><i class="fas fa-car"></i> Transfer Dahil</li>
-                                <li><i class="fas fa-umbrella-beach"></i> Tekne Turu Dahil</li>
-                            </ul>
-                            <a href="/routes/antalya-fethiye" class="btn btn-secondary">Detayları Gör</a>
-                        </div>
-                    </div>
-                    <div class="route-card">
-                        <div class="route-image">
-                            <img src="/images/izmir-efes.jpg" alt="İzmir - Efes">
-                            <div class="route-price">₺1,499'den başlayan</div>
-                        </div>
-                        <div class="route-content">
-                            <h3>İzmir - Efes</h3>
-                            <p>3 Gün 2 Gece</p>
-                            <ul class="route-features">
-                                <li><i class="fas fa-hotel"></i> 2 Gece Konaklama</li>
-                                <li><i class="fas fa-bus"></i> Transfer Dahil</li>
-                                <li><i class="fas fa-landmark"></i> Efes Turu Dahil</li>
-                            </ul>
-                            <a href="/routes/izmir-efes" class="btn btn-secondary">Detayları Gör</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Special Offers Section -->
-            <section class="offers-section">
-                <div class="section-header">
-                    <h2>Özel Teklifler</h2>
-                    <p>Size özel hazırlanmış seyahat fırsatları</p>
-                </div>
-                <div class="offers-container">
-                    <div class="offer-card">
-                        <div class="offer-badge">%20 İndirim</div>
-                        <div class="offer-content">
-                            <h3>Erken Rezervasyon</h3>
-                            <p>6 ay öncesinden yapılan rezervasyonlarda %20 indirim fırsatı!</p>
-                            <ul class="offer-features">
-                                <li><i class="fas fa-check"></i> Tüm destinasyonlarda geçerli</li>
-                                <li><i class="fas fa-check"></i> Uçak bileti dahil</li>
-                                <li><i class="fas fa-check"></i> Otel konaklaması dahil</li>
-                            </ul>
-                            <a href="/offers/early-booking" class="btn btn-primary">Fırsatı Yakala</a>
-                        </div>
-                    </div>
-                    <div class="offer-card">
-                        <div class="offer-badge">2+1</div>
-                        <div class="offer-content">
-                            <h3>Arkadaş Grubu İndirimi</h3>
-                            <p>3 kişilik gruplarda 1 kişi bedava!</p>
-                            <ul class="offer-features">
-                                <li><i class="fas fa-check"></i> Minimum 3 kişilik gruplar</li>
-                                <li><i class="fas fa-check"></i> En ucuz paket ücretsiz</li>
-                                <li><i class="fas fa-check"></i> Tüm sezonlarda geçerli</li>
-                            </ul>
-                            <a href="/offers/group-discount" class="btn btn-primary">Detayları Gör</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Destinations Section -->
-            <section class="destinations-section">
-                <div class="section-header">
-                    <h2>Popüler Destinasyonlar</h2>
-                    <p>En çok tercih edilen seyahat noktaları</p>
-                </div>
-                <div class="destinations-grid">
-                    <div class="destination-card">
-                        <img src="/images/istanbul.jpg" alt="İstanbul">
-                        <div class="destination-info">
-                            <h3>İstanbul</h3>
-                            <p>Tarih ve modernliğin buluştuğu şehir</p>
-                        </div>
-                    </div>
-                    <div class="destination-card">
-                        <img src="/images/antalya.jpg" alt="Antalya">
-                        <div class="destination-info">
-                            <h3>Antalya</h3>
-                            <p>Muhteşem kumsallar ve antik kalıntılar</p>
-                        </div>
-                    </div>
-                    <div class="destination-card">
-                        <img src="/images/cappadocia.jpg" alt="Kapadokya">
-                        <div class="destination-info">
-                            <h3>Kapadokya</h3>
-                            <p>Peri bacaları ve balon turları</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CTA Section -->
-            <section class="cta-section">
-                <div class="cta-content">
-                    <h2>Seyahat Planlamaya Başlayın</h2>
-                    <p>Hemen ücretsiz hesap oluşturun ve seyahat planlamanın kolaylığını keşfedin.</p>
-                    <a href="/register" class="btn btn-primary">Ücretsiz Hesap Oluştur</a>
-                </div>
-            </section>
-        </main>
+<%- include('partials/_header_main') %>
 
 
-        
-</body>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Seyahat Planlamanın Yeni Yolu</h1>
+                <p>Tüm seyahat planlarınızı tek bir yerde toplayın ve organize edin.</p>
+                <div class="cta-buttons">
+                    <a href="/register" class="btn btn-primary">Ücretsiz Başla</a>
+                    <a href="/demo" class="btn btn-secondary">Nasıl Çalışır?</a>
+                </div>
+            </div>
+        </section>
 
-</html>
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-header">
+                <h2>Neden BudgetTravel?</h2>
+                <p>Seyahat deneyiminizi kolaylaştıran özellikler</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Akıllı Planlama</h3>
+                    <p>Rezervasyonlarınızı otomatik olarak organize edin</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Detaylı Haritalar</h3>
+                    <p>Gideceğiniz yerleri interaktif haritalarda görün</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Bütçe Takibi</h3>
+                    <p>Harcamalarınızı kontrol altında tutun</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Kolay Paylaşım</h3>
+                    <p>Planlarınızı arkadaşlarınızla paylaşın</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Routes Section -->
+        <section class="routes-section">
+            <div class="section-header">
+                <h2>Popüler Güzergahlar</h2>
+                <p>En çok tercih edilen seyahat rotaları</p>
+            </div>
+            <div class="routes-grid">
+                <div class="route-card">
+                    <div class="route-image">
+                        <img src="/images/istanbul-cappadocia.jpg" alt="İstanbul - Kapadokya">
+                        <div class="route-price">₺2,499'den başlayan</div>
+                    </div>
+                    <div class="route-content">
+                        <h3>İstanbul - Kapadokya</h3>
+                        <p>4 Gün 3 Gece</p>
+                        <ul class="route-features">
+                            <li><i class="fas fa-hotel"></i> 3 Gece Konaklama</li>
+                            <li><i class="fas fa-plane"></i> Uçak Bileti Dahil</li>
+                            <li><i class="fas fa-map-marked-alt"></i> Tüm Turlar Dahil</li>
+                        </ul>
+                        <a href="/routes/istanbul-cappadocia" class="btn btn-secondary">Detayları Gör</a>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-image">
+                        <img src="/images/antalya-fethiye.jpg" alt="Antalya - Fethiye">
+                        <div class="route-price">₺1,999'den başlayan</div>
+                    </div>
+                    <div class="route-content">
+                        <h3>Antalya - Fethiye</h3>
+                        <p>5 Gün 4 Gece</p>
+                        <ul class="route-features">
+                            <li><i class="fas fa-hotel"></i> 4 Gece Konaklama</li>
+                            <li><i class="fas fa-car"></i> Transfer Dahil</li>
+                            <li><i class="fas fa-umbrella-beach"></i> Tekne Turu Dahil</li>
+                        </ul>
+                        <a href="/routes/antalya-fethiye" class="btn btn-secondary">Detayları Gör</a>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <div class="route-image">
+                        <img src="/images/izmir-efes.jpg" alt="İzmir - Efes">
+                        <div class="route-price">₺1,499'den başlayan</div>
+                    </div>
+                    <div class="route-content">
+                        <h3>İzmir - Efes</h3>
+                        <p>3 Gün 2 Gece</p>
+                        <ul class="route-features">
+                            <li><i class="fas fa-hotel"></i> 2 Gece Konaklama</li>
+                            <li><i class="fas fa-bus"></i> Transfer Dahil</li>
+                            <li><i class="fas fa-landmark"></i> Efes Turu Dahil</li>
+                        </ul>
+                        <a href="/routes/izmir-efes" class="btn btn-secondary">Detayları Gör</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offers Section -->
+        <section class="offers-section">
+            <div class="section-header">
+                <h2>Özel Teklifler</h2>
+                <p>Size özel hazırlanmış seyahat fırsatları</p>
+            </div>
+            <div class="offers-container">
+                <div class="offer-card">
+                    <div class="offer-badge">%20 İndirim</div>
+                    <div class="offer-content">
+                        <h3>Erken Rezervasyon</h3>
+                        <p>6 ay öncesinden yapılan rezervasyonlarda %20 indirim fırsatı!</p>
+                        <ul class="offer-features">
+                            <li><i class="fas fa-check"></i> Tüm destinasyonlarda geçerli</li>
+                            <li><i class="fas fa-check"></i> Uçak bileti dahil</li>
+                            <li><i class="fas fa-check"></i> Otel konaklaması dahil</li>
+                        </ul>
+                        <a href="/offers/early-booking" class="btn btn-primary">Fırsatı Yakala</a>
+                    </div>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">2+1</div>
+                    <div class="offer-content">
+                        <h3>Arkadaş Grubu İndirimi</h3>
+                        <p>3 kişilik gruplarda 1 kişi bedava!</p>
+                        <ul class="offer-features">
+                            <li><i class="fas fa-check"></i> Minimum 3 kişilik gruplar</li>
+                            <li><i class="fas fa-check"></i> En ucuz paket ücretsiz</li>
+                            <li><i class="fas fa-check"></i> Tüm sezonlarda geçerli</li>
+                        </ul>
+                        <a href="/offers/group-discount" class="btn btn-primary">Detayları Gör</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section class="destinations-section">
+            <div class="section-header">
+                <h2>Popüler Destinasyonlar</h2>
+                <p>En çok tercih edilen seyahat noktaları</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="/images/istanbul.jpg" alt="İstanbul">
+                    <div class="destination-info">
+                        <h3>İstanbul</h3>
+                        <p>Tarih ve modernliğin buluştuğu şehir</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/images/antalya.jpg" alt="Antalya">
+                    <div class="destination-info">
+                        <h3>Antalya</h3>
+                        <p>Muhteşem kumsallar ve antik kalıntılar</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/images/cappadocia.jpg" alt="Kapadokya">
+                    <div class="destination-info">
+                        <h3>Kapadokya</h3>
+                        <p>Peri bacaları ve balon turları</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Seyahat Planlamaya Başlayın</h2>
+                <p>Hemen ücretsiz hesap oluşturun ve seyahat planlamanın kolaylığını keşfedin.</p>
+                <a href="/register" class="btn btn-primary">Ücretsiz Hesap Oluştur</a>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/_footer_main') %>

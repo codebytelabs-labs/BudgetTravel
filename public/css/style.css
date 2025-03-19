@@ -1281,13 +1281,14 @@ body {
     text-decoration: none;
     font-size: 12px;
     font-weight: 500;
+    color: #fff;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     transform-origin: center;
     cursor: pointer;
     background: #fff;
-    border:1px solid ;
+    border:1px solid #808000;
     background-clip: padding-box;
 }
 
@@ -1299,7 +1300,6 @@ body {
     right: -2px;
     bottom: -2px;
     border:2px solid;
-    border-color: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     z-index: -1;
     border-radius: 22px;
     animation: glowing 20s linear infinite;
@@ -1333,12 +1333,21 @@ body {
 }
 
 .rainbow-button.signin {
-    color: #000;
+    color: #808000;
 }
 
 .rainbow-button.signup {
+    color: #808000;
+}
+
+.rainbow-button.signin:hover{
     color: #000;
 }
+
+.rainbow-button.signup:hover {
+    color: #000;
+}
+
 
 @media (max-width: 768px) {
     .rainbow-buttons {
