@@ -30,4 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
             searchBox.classList.remove('active');
         }
     });
+
+    // App Buttons Click Prevention
+    document.querySelectorAll('.app-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    });
 }); 
