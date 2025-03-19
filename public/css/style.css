@@ -522,3 +522,78 @@ body {
         margin: 0 auto;
     }
 }
+
+/* Search Styles */
+.search-container {
+    position: relative;
+}
+
+.search-toggle {
+    background: none;
+    border: none;
+    color: #1d1d1f;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.3s;
+}
+
+.search-toggle:hover {
+    color: #808000;
+}
+
+.search-box {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 0;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+
+.search-box.active {
+    width: 300px;
+    opacity: 1;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 40px 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #86868b;
+}
+
+.search-close {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #86868b;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+.search-close:hover {
+    color: #1d1d1f;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .search-box.active {
+        width: 250px;
+    }
+}

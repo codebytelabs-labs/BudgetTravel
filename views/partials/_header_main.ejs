@@ -61,9 +61,17 @@
                 <li><a href="/about">Hakkımızda</a></li>
             </ul>
             <div class="nav-right">
-                <a href="/search" class="search-icon">
-                    <i class="fas fa-search"></i>
-                </a>
+                <div class="search-container">
+                    <button class="search-toggle" id="searchToggle">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-box" id="searchBox">
+                        <input type="text" placeholder="Nereye gitmek istersiniz?">
+                        <button class="search-close" id="searchClose">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
                 <a href="/account" class="account-icon">
                     <i class="fas fa-user"></i>
                 </a>
