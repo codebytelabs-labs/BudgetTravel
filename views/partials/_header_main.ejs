@@ -36,6 +36,7 @@
                </script> -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
 
 </head>
 
@@ -47,14 +48,34 @@
             <div class="logo">
                 <a href="/">BudgetTravel</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="/destinations">Destinasyonlar</a></li>
-                <li><a href="/deals">Fırsatlar</a></li>
-                <li><a href="/guides">Rehberler</a></li>
-                <li><a href="/planner">Seyahat Planlayıcı</a></li>
-                <li><a href="/about">Hakkımızda</a></li>
-            </ul>
+
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="/">Ana Sayfa</a></li>
+                    <li><a href="/about">Hakkımızda</a></li>
+                    <li><a href="/routes">Rotalar</a></li>
+                    <li><a href="/destinations">Destinasyonlar</a></li>
+                    <li><a href="/contact">İletişim</a></li>
+                </ul>
+            </div>
+
             <div class="nav-right">
+                <div class="app-buttons">
+                    <a href="#" class="app-button android">
+                        <i class="fab fa-android"></i>
+                        <span>Android</span>
+                    </a>
+                    <a href="#" class="app-button ios">
+                        <i class="fab fa-apple"></i>
+                        <span>iOS</span>
+                    </a>
+                </div>
                 <div class="search-container">
                     <button class="search-toggle" id="searchToggle">
                         <i class="fas fa-search"></i>
@@ -66,28 +87,13 @@
                         </button>
                     </div>
                 </div>
-                <div class="app-buttons">
-                    <a href="#" class="app-button android">
-                        <i class="fab fa-android"></i>
-                        <span>Android</span>
-                    </a>
-                    <a href="#" class="app-button ios">
-                        <i class="fab fa-apple"></i>
-                        <span>iOS</span>
-                    </a>
-                </div>
                 <a href="/account" class="account-icon">
                     <i class="fas fa-user"></i>
                 </a>
             </div>
         </nav>
     </header>
-
-    <script>
-
-    </script>
-
-    <script type="text/javascript" src="/js/script.js"></script>
+    
 
 </body>
 

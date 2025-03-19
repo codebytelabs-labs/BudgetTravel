@@ -16,6 +16,10 @@ app.get('/', (req, res) => {
   res.render("index.ejs");
 });
 
+app.get('/about', (req, res) => {
+  res.render("about.ejs");
+});
+
 
 const port = 3000;
 const ipAddress = '127.0.0.1'; // Örnek bir IP adresi, kendi IP'nizi kullanmalısınız
