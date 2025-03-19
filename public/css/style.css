@@ -597,3 +597,129 @@ body {
         width: 250px;
     }
 }
+
+/* App Buttons */
+.app-buttons {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.app-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transform-origin: center;
+}
+
+.app-button i {
+    font-size: 16px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-button.android {
+    background: #3DDC84;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(61, 220, 132, 0.4);
+    border: 1px solid transparent;
+}
+
+.app-button.android:hover {
+    background: #2BB673;
+    box-shadow: 0 0 20px rgba(61, 220, 132, 0.6);
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.app-button.android:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.app-button.android::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: shine 4s ease-in-out infinite;
+    transition: opacity 0.6s ease;
+}
+
+.app-button.android:hover::before {
+    opacity: 0.5;
+}
+
+.app-button.ios {
+    background: #007AFF;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(0, 122, 255, 0.4);
+    border: 1px solid transparent;
+}
+
+.app-button.ios:hover {
+    background: #0056b3;
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.6);
+    transform: translateY(-2px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.app-button.ios:hover i {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.app-button.ios::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: shine 4s ease-in-out infinite;
+    transition: opacity 0.6s ease;
+}
+
+.app-button.ios:hover::before {
+    opacity: 0.5;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .app-buttons {
+        display: none;
+    }
+}
