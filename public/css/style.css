@@ -1,3 +1,287 @@
+/* Genel Stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #1d1d1f;
+    background-color: #fff;
+}
+
+.main-content {
+    padding-top: 44px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #f5f5f7 0%, #fff 100%);
+    padding: 120px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 24px;
+    color: #86868b;
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 980px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #808000;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #8a8a00;
+}
+
+.btn-secondary {
+    background-color: #f5f5f7;
+    color: #1d1d1f;
+    margin-left: 12px;
+}
+
+.btn-secondary:hover {
+    background-color: #e8e8ed;
+}
+
+/* Features Section */
+.features-section {
+    padding: 100px 20px;
+    background-color: #fff;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.section-header p {
+    color: #86868b;
+    font-size: 20px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 40px;
+    background-color: #f5f5f7;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card i {
+    font-size: 40px;
+    color: #808000;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.feature-card p {
+    color: #86868b;
+}
+
+/* Destinations Section */
+.destinations-section {
+    padding: 100px 20px;
+    background-color: #f5f5f7;
+}
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.destination-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.destination-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.05);
+}
+
+.destination-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: #fff;
+}
+
+.destination-info h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 100px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    color: #86868b;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+/* Footer */
+.main-footer {
+    background-color: #f5f5f7;
+    padding: 60px 20px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 12px;
+}
+
+.footer-section a {
+    color: #86868b;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #1d1d1f;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    font-size: 20px;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #d2d2d7;
+    text-align: center;
+    color: #86868b;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+    }
+
+    .section-header h2 {
+        font-size: 32px;
+    }
+
+    .cta-content h2 {
+        font-size: 32px;
+    }
+
+    .btn {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    .btn-secondary {
+        margin-left: 0;
+    }
+}
+
 /* Header Styles */
 .main-header {
     background-color: rgba(255, 255, 255, 0.8);
@@ -49,7 +333,7 @@
 }
 
 .nav-links li a:hover {
-    color: #0066cc;
+    color: #808000;
 }
 
 .nav-right {
@@ -66,7 +350,7 @@
 }
 
 .nav-right a:hover {
-    color: #0066cc;
+    color: #808000;
 }
 
 /* Responsive Tasarım */
@@ -77,5 +361,164 @@
     
     .nav-container {
         justify-content: space-between;
+    }
+}
+
+/* Routes Section */
+.routes-section {
+    padding: 100px 20px;
+    background-color: #fff;
+}
+
+.routes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.route-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.route-card:hover {
+    transform: translateY(-10px);
+}
+
+.route-image {
+    position: relative;
+    height: 200px;
+}
+
+.route-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.route-price {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(128, 128, 0, 0.9);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.route-content {
+    padding: 20px;
+}
+
+.route-content h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.route-content p {
+    color: #86868b;
+    margin-bottom: 16px;
+}
+
+.route-features {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.route-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #1d1d1f;
+}
+
+.route-features i {
+    color: #808000;
+    margin-right: 10px;
+}
+
+/* Offers Section */
+.offers-section {
+    padding: 100px 20px;
+    background-color: #f5f5f7;
+}
+
+.offers-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.offer-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-10px);
+}
+
+.offer-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: #808000;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.offer-content h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #1d1d1f;
+}
+
+.offer-content p {
+    color: #86868b;
+    margin-bottom: 20px;
+}
+
+.offer-features {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.offer-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #1d1d1f;
+}
+
+.offer-features i {
+    color: #808000;
+    margin-right: 10px;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .routes-grid,
+    .offers-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .route-card,
+    .offer-card {
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
