@@ -31,6 +31,8 @@ app.get('/signup', (req, res) => {
 });
 
 
+
+
 const port = 3000;
 const ipAddress = '127.0.0.1'; // Örnek bir IP adresi, kendi IP'nizi kullanmalısınız
 
@@ -38,4 +40,15 @@ app.set('host', '127.0.0.1');
 
 http.listen(3000, ipAddress, () => {
   console.log(`Sunucu çalışıyor, IP: ${ipAddress}, Port: ${port}`);
+});
+
+// 404 sayfası yönlendirmesi
+app.use((req, res, next) => {
+    res.status(404).render('404');
+});
+
+// Hata yakalama middleware'i
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('404');
 });

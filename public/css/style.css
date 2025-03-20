@@ -1333,19 +1333,23 @@ body {
 }
 
 .rainbow-button.signin {
-    color: #808000;
+    color: rgb(108, 146, 37);
+    box-shadow: 0 0 12px rgba(158, 224, 34, 0.2);
+    border: 1px solid rgba(146, 220, 61, 0.3);
 }
 
 .rainbow-button.signup {
-    color: #808000;
+    color: rgb(108, 146, 37);
+    box-shadow: 0 0 12px rgba(158, 224, 34, 0.2);
+    border: 1px solid rgba(146, 220, 61, 0.3);
 }
 
 .rainbow-button.signin:hover{
-    color: #000;
+    color: #808000;
 }
 
 .rainbow-button.signup:hover {
-    color: #000;
+    color: #808000;
 }
 
 
