@@ -30,6 +30,11 @@ app.get('/signup', (req, res) => {
   res.render("signup_user.ejs");
 });
 
+app.get('/contact', (req, res) => {
+  res.render("contact.ejs");
+});
+
+
 
 
 

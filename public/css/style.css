@@ -1358,3 +1358,227 @@ body {
         display: none;
     }
 }
+
+/* İletişim Sayfası Stilleri */
+.contact-hero {
+    background: linear-gradient(135deg, #f5f5f7 0%, #fff 100%);
+    padding: 120px 20px 60px;
+    text-align: center;
+}
+
+.contact-hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.contact-hero-content p {
+    font-size: 24px;
+    color: #86868b;
+}
+
+.contact-main {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* İletişim Formu Stilleri */
+.contact-form-section {
+    background: #fff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    margin-bottom: 40px;
+}
+
+.form-header h2 {
+    font-size: 32px;
+    color: #1d1d1f;
+    margin-bottom: 12px;
+}
+
+.form-header p {
+    color: #86868b;
+    font-size: 16px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 24px;
+}
+
+.contact-form label {
+    display: block;
+    font-size: 14px;
+    color: #1d1d1f;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.contact-form .input-group {
+    position: relative;
+}
+
+.contact-form .input-group i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #86868b;
+    font-size: 18px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px 14px 14px 48px;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #1d1d1f;
+    transition: all 0.3s ease;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+    padding-top: 16px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #2E7D32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #2E7D32;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.submit-button:hover {
+    background: #388E3C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+.submit-button i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.submit-button:hover i {
+    transform: translateX(4px);
+}
+
+/* İletişim Bilgileri Stilleri */
+.contact-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h3 {
+    font-size: 24px;
+    color: #1d1d1f;
+    margin-bottom: 30px;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.info-item i {
+    font-size: 24px;
+    color: #2E7D32;
+    margin-top: 4px;
+}
+
+.info-content h4 {
+    font-size: 16px;
+    color: #1d1d1f;
+    margin-bottom: 4px;
+}
+
+.info-content p {
+    color: #86868b;
+    line-height: 1.6;
+}
+
+.map-container {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .contact-form-section,
+    .info-card {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-hero-content h1 {
+        font-size: 36px;
+    }
+
+    .contact-hero-content p {
+        font-size: 18px;
+    }
+
+    .form-header h2 {
+        font-size: 28px;
+    }
+
+    .info-card h3 {
+        font-size: 20px;
+    }
+}

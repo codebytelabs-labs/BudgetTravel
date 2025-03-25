@@ -1,0 +1,102 @@
+<%- include('partials/_header_main') %>
+
+<!-- İletişim Hero Section -->
+<section class="contact-hero">
+    <div class="contact-hero-content">
+        <h1>Bizimle İletişime Geçin</h1>
+        <p>Sorularınız için bize ulaşın, size yardımcı olmaktan mutluluk duyarız.</p>
+    </div>
+</section>
+
+<!-- İletişim Ana Bölüm -->
+<section class="contact-main">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- İletişim Formu -->
+            <div class="contact-form-section">
+                <div class="form-header">
+                    <h2>Mesaj Gönderin</h2>
+                    <p>Size en kısa sürede dönüş yapacağız.</p>
+                </div>
+                <form class="contact-form" action="/contact" method="POST">
+                    <div class="form-group">
+                        <label for="name">Adınız Soyadınız</label>
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="name" name="name" required placeholder="Adınız ve soyadınız">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta Adresiniz</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" required placeholder="ornek@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Konu</label>
+                        <div class="input-group">
+                            <i class="fas fa-tag"></i>
+                            <input type="text" id="subject" name="subject" required placeholder="Mesajınızın konusu">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <div class="input-group">
+                            <i class="fas fa-comment-alt"></i>
+                            <textarea id="message" name="message" required placeholder="Mesajınızı buraya yazın..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Mesaj Gönder
+                    </button>
+                </form>
+            </div>
+
+            <!-- İletişim Bilgileri -->
+            <div class="contact-info-section">
+                <div class="info-card">
+                    <h3>İletişim Bilgileri</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info-content">
+                                <h4>Adres</h4>
+                                <p>Örnek Mahallesi, Örnek Sokak No:123<br>34000 İstanbul, Türkiye</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="info-content">
+                                <h4>Telefon</h4>
+                                <p>+90 (212) 123 45 67</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info-content">
+                                <h4>E-posta</h4>
+                                <p>info@budgettravel.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Harita -->
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.4434567890123!2d28.977549315789012!3d41.03749931578901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2zVGFrc2ltIE1leWRhbsSx!5e0!3m2!1str!2str!4v1234567890!5m2!1str!2str" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/_footer_main') %> 
