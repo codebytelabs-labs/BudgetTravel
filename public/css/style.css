@@ -1504,3 +1504,147 @@ body {
 .small-text:hover {
     text-decoration: underline; /* Hover durumunda altı çizili olması için */
 }
+
+/* ALFA Sürümü Banner Stili */
+.alpha-banner {
+    background-color: #2E7D32; /* Yeşil dolgu rengi */
+    color: #fff; /* Beyaz yazı rengi */
+    text-align: center; /* Ortalanmış metin */
+    padding: 15px; /* İç boşluk */
+    font-size: 20px; /* Yazı boyutu */
+    font-weight: bold; /* Kalın yazı */
+    border-radius: 5px; /* Yuvarlak köşeler */
+    position: relative; /* Konumlandırma için */
+    top: 20px; /* Üstten boşluk */
+    margin: 0 auto; /* Ortalamak için */
+    max-width: 300px; /* Maksimum genişlik */
+    z-index: 10; /* Diğer elemanların üstünde görünmesi için */
+}
+
+/* Console Section Stili */
+.console-section {
+    padding: 20px;
+    background-color: #1e1e1e; /* Koyu arka plan */
+    border-radius: 10px; /* Yuvarlak köşeler */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+    margin-top: 20px; /* Üstten boşluk */
+}
+
+.console-container {
+    overflow: auto; /* Taşan içeriği kaydırmak için */
+}
+
+.console-output {
+    color: #ffffff; /* Yazı rengi */
+    font-family: 'Courier New', Courier, monospace; /* Monospace yazı tipi */
+    white-space: pre; /* Boşlukları korumak için */
+    font-size: 16px; /* Yazı boyutu */
+    height: 200px; /* Yükseklik */
+    overflow-y: auto; /* Dikey kaydırma çubuğu */
+    padding: 10px; /* İç boşluk */
+}
+
+.console-input {
+    width: 100%; /* Genişlik */
+    padding: 10px; /* İç boşluk */
+    border: none; /* Kenar yok */
+    border-radius: 5px; /* Yuvarlak köşeler */
+    font-size: 16px; /* Yazı boyutu */
+    color: #1d1d1f; /* Yazı rengi */
+    background-color: #fff; /* Arka plan rengi */
+    margin-top: 10px; /* Üstten boşluk */
+}
+
+.console-input:focus {
+    outline: none; /* Kenar çerçevesi yok */
+    border: 1px solid #2E7D32; /* Odaklanma rengi */
+}
+
+/* Chatbot Form Stili */
+.chatbot-form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-form h3 {
+    text-align: center;
+    color: #1d1d1f;
+    margin-bottom: 10px;
+}
+
+.chatbot-form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #1d1d1f;
+}
+
+.chatbot-form textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #1d1d1f;
+    resize: none;
+}
+
+.chatbot-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chatbot-form button:hover {
+    background-color: #388E3C;
+}
+
+/* Chatbot Sonuç Sayfası Stili */
+.chatbot-result {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-result h2 {
+    color: #4CAF50;
+}
+
+.chatbot-result p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.chatbot-result .result-section {
+    margin-bottom: 20px;
+}
+
+.chatbot-result .result-section p {
+    font-weight: bold;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .chatbot-form, .chatbot-result {
+        width: 95%;
+    }
+}
+

@@ -1,0 +1,160 @@
+<%- include('partials/_header_main') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seyahat Bütçe Planlama Konsolu</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .alpha-banner {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .console-section {
+            margin-top: 20px;
+        }
+
+        .console-container {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 400px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+
+        .console-input {
+            width: 100%;
+            padding: 10px;
+            font-family: monospace;
+            background: #111;
+            color: #0f0;
+            border: none;
+            outline: none;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .footer-main {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<main class="main-content">
+    <div class="alpha-banner">ALFA Sürümü</div>
+    <section class="console-section">
+        <div class="console-container">
+            <pre id="consoleOutput"></pre>
+        </div>
+        <input type="text" id="consoleInput" class="console-input" placeholder="Komut girin (örn: istanbul riga 4 40000)" />
+    </section>
+</main>
+
+<!--<py-script>
+    from js import document, window
+    import sys
+    from io import StringIO
+    
+    output = document.getElementById("consoleOutput")
+    
+    def write(msg):
+        output.textContent += f"\n{msg}"
+        output.scrollTop = output.scrollHeight
+    
+    def budget_hesap(budget, konak_suresi, ucak, gunluk_otel):
+        budget -= ucak
+        budget -= konak_suresi * gunluk_otel
+        return budget
+    
+    def etkinlikler(varis, kalan_para):
+        etkinlik_listesi = {
+            "riga": [("Riga Motor Müzesi", 522), ("Riga Katedrali", 217)],
+            "lublin": [("Lublin Kalesi", 204), ("Aqua Lublin", 346)],
+            "newyork": [("MoMA", 1149), ("Empire State", 2044)],
+            "moskova": [("Aziz Vasil", 922)],
+            "barselona": [("La Sagrada Familia", 1135)],
+            "madrid": [("Prado Müzesi", 654)],
+        }
+        kalan = kalan_para
+        if varis in etkinlik_listesi:
+            for ad, ucret in etkinlik_listesi[varis]:
+                if kalan >= ucret:
+                    write(f"✓ {ad} ({ucret} TL)")
+                    kalan -= ucret
+        write("✓ Ücretsiz etkinlikler de mevcuttur.")
+        return kalan
+    
+    def calistir_komut(girdi):
+        try:
+            sys.stdout = mystdout = StringIO()
+            veriler = girdi.lower().split()
+            kalkis, varis, gun, butce = veriler[0], veriler[1], int(veriler[2]), int(veriler[3])
+            ucak_fiyati = {
+                "riga": 10420 * 2,
+                "lublin": 12225 * 2,
+                "newyork": 11479 * 2,
+                "moskova": 5414 * 2,
+                "barselona": 5038 * 2,
+                "madrid": 8520 * 2,
+            }
+            otel_fiyati = {
+                "riga": 3600,
+                "lublin": 3108,
+                "newyork": 6400,
+                "moskova": 3431,
+                "barselona": 9249,
+                "madrid": 4665,
+            }
+            if varis not in ucak_fiyati:
+                write("Geçersiz varış şehri.")
+                return
+            kalan = budget_hesap(butce, gun, ucak_fiyati[varis], otel_fiyati[varis])
+            write(f">> Kalan bütçeniz: {kalan:.2f} TL")
+            kalan = etkinlikler(varis, kalan)
+            write(f">> Son kalan: {kalan:.2f} TL")
+        except Exception as e:
+            write(f"Hata: {e}")
+        finally:
+            sys.stdout = sys.__stdout__
+        return mystdout.getvalue()
+    
+    # JS tarafına aktar!
+    window.calistir_komut = calistir_komut
+    </py-script>-->
+
+    <pyscript>
+        print("Hello World")
+    </pyscript>
+    
+    <script type="py" src="python_scripts/SeyahatPlanlayıcıBuggetTravel.py"></script>
+
+
+
+<%- include('partials/_footer_main') %>

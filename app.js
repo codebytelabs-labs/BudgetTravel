@@ -1,38 +1,45 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const https = require('https');
 const app = express();
 const http = require('http').Server(app);
+require("dotenv").config();
 
 
+const chatbotRoutes = require("./routes/chatbot");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //app.set('view engine','html');
 
+
+
+app.use(session({
+  secret: 'your-secret-key',  // Güvenlik için gizli bir anahtar
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  // Eğer HTTPS kullanıyorsan, 'secure: true' yapmalısın
+}));
+
+
 app.use(express.static('public', express.static(path.join(__dirname, 'public'))));
-
-app.get('/', (req, res) => {
-  res.render("index.ejs");
-});
-
-app.get('/about', (req, res) => {
-  res.render("about.ejs");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/signin', (req, res) => {
-  res.render("signin_user.ejs");
-});
+app.get('/', (req, res) => res.render("index.ejs"));
+app.get('/about', (req, res) => res.render("about.ejs"));
+app.get('/signin', (req, res) => res.render("signin_user.ejs"));
+app.get('/signup', (req, res) => res.render("signup_user.ejs"));
+app.get('/contact', (req, res) => res.render("contact.ejs"));
+app.get('/destinations', (req, res) => res.render("destinations.ejs"));
 
+// AI Tatil Planlayıcı Form Sayfası
+app.get('/chatbot', (req, res) => res.render("chatbot.ejs"));
 
-app.get('/signup', (req, res) => {
-  res.render("signup_user.ejs");
-});
+app.use('/api', chatbotRoutes);
 
-app.get('/contact', (req, res) => {
-  res.render("contact.ejs");
-});
 
 
 
