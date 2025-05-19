@@ -9,6 +9,7 @@ require("dotenv").config();
 
 const chatbotRoutes = require("./routes/chatbot");
 
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //app.set('view engine','html');
@@ -26,6 +27,7 @@ app.use(session({
 app.use(express.static('public', express.static(path.join(__dirname, 'public'))));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 
 app.get('/', (req, res) => res.render("index.ejs"));
