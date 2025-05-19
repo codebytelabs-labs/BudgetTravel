@@ -33,7 +33,7 @@ app.get('/about', (req, res) => res.render("about.ejs"));
 app.get('/signin', (req, res) => res.render("signin_user.ejs"));
 app.get('/signup', (req, res) => res.render("signup_user.ejs"));
 app.get('/contact', (req, res) => res.render("contact.ejs"));
-app.get('/destinations', (req, res) => res.render("destinations.ejs"));
+app.get('/destinations', (req, res) => res.render("chatbot.ejs"));
 
 // AI Tatil Planlayıcı Form Sayfası
 app.get('/chatbot', (req, res) => res.render("chatbot.ejs"));
