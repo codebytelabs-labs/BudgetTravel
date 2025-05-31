@@ -21,6 +21,6 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setLoadWithOverviewMode(true);
 
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://budgettravel.vercel.app");
+        webView.loadUrl("https://budgettravel.onrender.com");
     }
 }
