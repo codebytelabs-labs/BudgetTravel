@@ -14,15 +14,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //app.set('view engine','html');
 
-
+app.set('trust proxy', 1); // Vercel gibi proxy arkasında çalışırken şart
 
 app.use(session({
-  secret: 'your-secret-key',  // Güvenlik için gizli bir anahtar
+  secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }  // Eğer HTTPS kullanıyorsan, 'secure: true' yapmalısın
+  cookie: {
+    secure: process.env.NODE_ENV === 'production'
+  }
 }));
-
 
 app.use(express.static('public', express.static(path.join(__dirname, 'public'))));
 app.use(express.json());
