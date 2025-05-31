@@ -1666,61 +1666,6 @@ body {
     justify-content: center;
 }
 
-#mekanlar-container.compact.openai-style {
-    background: #f7f8fa;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-    padding: 32px 32px 24px 32px;
-    margin: 48px auto;
-    max-width: 900px;
-    width: 95%;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    border: 1px solid #ececec;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 60vh;
-    justify-content: center;
-}
-
-#oteller-container.compact.openai-style {
-    background: #f7f8fa;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-    padding: 32px 32px 24px 32px;
-    margin: 48px auto;
-    max-width: 900px;
-    width: 95%;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    border: 1px solid #ececec;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 60vh;
-    justify-content: center;
-}
-
-
-#ucuslar-container.compact.openai-style {
-    background: #f7f8fa;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-    padding: 32px 32px 24px 32px;
-    margin: 48px auto;
-    max-width: 900px;
-    width: 95%;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    border: 1px solid #ececec;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 60vh;
-    justify-content: center;
-}
-
-
-
-
 #chatbot-result-container .result-title {
     font-size: 2rem;
     font-weight: 700;
@@ -1750,107 +1695,6 @@ body {
 }
 
 #chatbot-result-container .results-grid::-webkit-scrollbar-thumb {
-    background: #d2d2d7;
-    border-radius: 8px;
-}
-
-
-
-#mekanlar-container .result-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 32px;
-    letter-spacing: -0.5px;
-    text-align: center;
-}
-
-#mekanlar-container .results-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    width: 100%;
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 8px;
-    margin: 0 auto;
-    scrollbar-width: thin;
-    scrollbar-color: #d2d2d7 #f7f8fa;
-}
-
-#mekanlar-container .results-grid::-webkit-scrollbar {
-    width: 8px;
-    background: #f7f8fa;
-    border-radius: 8px;
-}
-
-#mekanlar-container .results-grid::-webkit-scrollbar-thumb {
-    background: #d2d2d7;
-    border-radius: 8px;
-}
-
-#oteller-container .result-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 32px;
-    letter-spacing: -0.5px;
-    text-align: center;
-}
-
-#oteller-container .results-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    width: 100%;
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 8px;
-    margin: 0 auto;
-    scrollbar-width: thin;
-    scrollbar-color: #d2d2d7 #f7f8fa;
-}
-
-#oteller-container .results-grid::-webkit-scrollbar {
-    width: 8px;
-    background: #f7f8fa;
-    border-radius: 8px;
-}
-
-#oteller-container .results-grid::-webkit-scrollbar-thumb {
-    background: #d2d2d7;
-    border-radius: 8px;
-}
-
-#ucuslar-container .result-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 32px;
-    letter-spacing: -0.5px;
-    text-align: center;
-}
-
-#ucuslar-container .results-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    width: 100%;
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 8px;
-    margin: 0 auto;
-    scrollbar-width: thin;
-    scrollbar-color: #d2d2d7 #f7f8fa;
-}
-
-#ucuslar-container .results-grid::-webkit-scrollbar {
-    width: 8px;
-    background: #f7f8fa;
-    border-radius: 8px;
-}
-
-#ucuslar-container .results-grid::-webkit-scrollbar-thumb {
     background: #d2d2d7;
     border-radius: 8px;
 }
@@ -1905,3 +1749,49 @@ body {
     }
 }
 
+.chatbot-form-container.compact.openai-style {
+    background: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    padding: 48px 48px 32px 48px;
+    margin: 48px auto;
+    max-width: 1400px;
+    width: 98vw;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+}
+
+.form-title-section {
+    background: transparent;
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 18px 12px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-bottom: 18px;
+    }
+}

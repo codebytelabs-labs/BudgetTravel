@@ -1,20 +1,26 @@
 <%- include('partials/_header_main') %>
 
-
-
-<form action="/api/chatbot" class="chatbot-form" method="POST">
-  <h3>Seyahat Planı, Uçuş ve Otel Planı Oluştur</h1>
-  <label for="itineraryPrompt">Seyahat Planı</label>
-  <textarea placeholder="(Örneğin: İstanbul'dan Parise seyehat ve 7 gün boyunca Paris'te gezilecek yerler)" name="itineraryPrompt" required></textarea>
-  
-  <label for="flightsPrompt">Uçuşlar</label>
-  <textarea placeholder=" (Örneğin: Paris'e en uygun uçuşlar)" name="flightsPrompt" required></textarea>
-  
-  <label for="hotelsPrompt">Oteller</label>
-  <textarea placeholder="(Örneğin: Paris'te 3 yıldızlı oteller)" name="hotelsPrompt" required></textarea>
-  
-  <button type="submit">Planı Oluştur</button>
-</form>
-
+<div class="chatbot-form-container compact openai-style">
+    <div class="form-title-section">
+        <h1 class="result-title">Seyahat Planı, Uçuş ve Otel Planı Oluştur</h1>
+    </div>
+    <form action="/api/chatbot" class="chatbot-form" method="POST">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="itineraryPrompt">Seyahat Planı</label>
+                <textarea placeholder="(Örneğin: İstanbul'dan Parise seyehat ve 7 gün boyunca Paris'te gezilecek yerler)" name="itineraryPrompt" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="flightsPrompt">Uçuşlar</label>
+                <textarea placeholder=" (Örneğin: Paris'e en uygun uçuşlar)" name="flightsPrompt" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="hotelsPrompt">Oteller</label>
+                <textarea placeholder="(Örneğin: Paris'te 3 yıldızlı oteller)" name="hotelsPrompt" required></textarea>
+            </div>
+        </div>
+        <button type="submit" class="submit-button">Planı Oluştur</button>
+    </form>
+</div>
 
 <%- include('partials/_footer_main') %>
