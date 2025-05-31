@@ -20,7 +20,7 @@ app.use(session({
   secret: 'your-secret-key',  // Güvenlik için gizli bir anahtar
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }  // Eğer HTTPS kullanıyorsan, 'secure: true' yapmalısın
+  cookie: { secure: true }  // Eğer HTTPS kullanıyorsan, 'secure: true' yapmalısın
 }));
 
 
