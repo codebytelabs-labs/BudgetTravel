@@ -48,12 +48,12 @@ app.use('/api', chatbotRoutes);
 
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const ipAddress = '127.0.0.1'; // Örnek bir IP adresi, kendi IP'nizi kullanmalısınız
 
 app.set('host', '127.0.0.1');
 
-http.listen(3000, ipAddress, () => {
+http.listen(port, ipAddress, () => {
   console.log(`Sunucu çalışıyor, IP: ${ipAddress}, Port: ${port}`);
 });
 
