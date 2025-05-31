@@ -1648,3 +1648,260 @@ body {
     }
 }
 
+/* Minimalist ve OpenAI tarzı chatbot sonuç sayfası için ek stiller */
+#chatbot-result-container.compact.openai-style {
+    background: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    padding: 32px 32px 24px 32px;
+    margin: 48px auto;
+    max-width: 900px;
+    width: 95%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 60vh;
+    justify-content: center;
+}
+
+#mekanlar-container.compact.openai-style {
+    background: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    padding: 32px 32px 24px 32px;
+    margin: 48px auto;
+    max-width: 900px;
+    width: 95%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 60vh;
+    justify-content: center;
+}
+
+#oteller-container.compact.openai-style {
+    background: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    padding: 32px 32px 24px 32px;
+    margin: 48px auto;
+    max-width: 900px;
+    width: 95%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 60vh;
+    justify-content: center;
+}
+
+
+#ucuslar-container.compact.openai-style {
+    background: #f7f8fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    padding: 32px 32px 24px 32px;
+    margin: 48px auto;
+    max-width: 900px;
+    width: 95%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    border: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 60vh;
+    justify-content: center;
+}
+
+
+
+
+#chatbot-result-container .result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+#chatbot-result-container .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d2d2d7 #f7f8fa;
+}
+
+#chatbot-result-container .results-grid::-webkit-scrollbar {
+    width: 8px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+#chatbot-result-container .results-grid::-webkit-scrollbar-thumb {
+    background: #d2d2d7;
+    border-radius: 8px;
+}
+
+
+
+#mekanlar-container .result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+#mekanlar-container .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d2d2d7 #f7f8fa;
+}
+
+#mekanlar-container .results-grid::-webkit-scrollbar {
+    width: 8px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+#mekanlar-container .results-grid::-webkit-scrollbar-thumb {
+    background: #d2d2d7;
+    border-radius: 8px;
+}
+
+#oteller-container .result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+#oteller-container .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d2d2d7 #f7f8fa;
+}
+
+#oteller-container .results-grid::-webkit-scrollbar {
+    width: 8px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+#oteller-container .results-grid::-webkit-scrollbar-thumb {
+    background: #d2d2d7;
+    border-radius: 8px;
+}
+
+#ucuslar-container .result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+    text-align: center;
+}
+
+#ucuslar-container .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 0 auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d2d2d7 #f7f8fa;
+}
+
+#ucuslar-container .results-grid::-webkit-scrollbar {
+    width: 8px;
+    background: #f7f8fa;
+    border-radius: 8px;
+}
+
+#ucuslar-container .results-grid::-webkit-scrollbar-thumb {
+    background: #d2d2d7;
+    border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+    #chatbot-result-container .results-grid {
+        max-height: 320px;
+        gap: 20px;
+    }
+}
+
+.ana-container-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 32px auto;
+    max-width: 1800px;
+}
+
+.ana-container-grid > .chatbot-result {
+    flex: 1 1 340px;
+    min-width: 320px;
+    max-width: 420px;
+}
+
+@media (max-width: 1200px) {
+    .ana-container-grid {
+        gap: 18px;
+        max-width: 98vw;
+    }
+    .ana-container-grid > .chatbot-result {
+        min-width: 260px;
+        max-width: 98vw;
+    }
+}
+
+@media (max-width: 900px) {
+    .ana-container-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin: 12px 0;
+    }
+    .ana-container-grid > .chatbot-result {
+        width: 98vw;
+        min-width: unset;
+        max-width: 98vw;
+    }
+}
+

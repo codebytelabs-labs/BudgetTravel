@@ -1,14 +1,68 @@
 <%- include('partials/_header_main') %>
 
-<h1>Oluşturulan Seyahat Planı</h1>
+<div class="ana-container-grid">
+    <div id="chatbot-result-container" class="chatbot-result compact openai-style">
+        <h1 id="result-title" class="result-title">Oluşturulan Seyahat Planı</h1>
 
-<h2>Seyahat Planı</h2>
-<p><%= itinerary %></p>
+        <div class="results-grid">
+            <div class="result-section" id="itinerary-section">
+                <h2 class="section-title">Seyahat Planı</h2>
+                <p class="section-content" id="itinerary-content"><%= itinerary %></p>
+            </div>
 
-<h2>Uçuşlar</h2>
-<p><%= flights %></p>
+            <div class="result-section" id="flights-section">
+                <h2 class="section-title">Uçuşlar</h2>
+                <p class="section-content" id="flights-content"><%= flights %></p>
+            </div>
 
-<h2>Oteller</h2>
-<p><%= hotels %></p>
+            <div class="result-section" id="hotels-section">
+                <h2 class="section-title">Oteller</h2>
+                <p class="section-content" id="hotels-content"><%= hotels %></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="mekanlar-container" class="chatbot-result compact openai-style">
+        <h1 class="result-title">Mekanlar</h1>
+        <div class="results-grid">
+            <div class="result-section">
+                <h2 class="section-title">Mekan 1</h2>
+                <p class="section-content">Örnek mekan açıklaması.</p>
+            </div>
+            <div class="result-section">
+                <h2 class="section-title">Mekan 2</h2>
+                <p class="section-content">Örnek mekan açıklaması.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="oteller-container" class="chatbot-result compact openai-style">
+        <h1 class="result-title">Oteller</h1>
+        <div class="results-grid">
+            <div class="result-section">
+                <h2 class="section-title">Otel 1</h2>
+                <p class="section-content">Örnek otel açıklaması.</p>
+            </div>
+            <div class="result-section">
+                <h2 class="section-title">Otel 2</h2>
+                <p class="section-content">Örnek otel açıklaması.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="ucuslar-container" class="chatbot-result compact openai-style">
+        <h1 class="result-title">Uçuşlar</h1>
+        <div class="results-grid">
+            <div class="result-section">
+                <h2 class="section-title">Uçuş 1</h2>
+                <p class="section-content">Örnek uçuş açıklaması.</p>
+            </div>
+            <div class="result-section">
+                <h2 class="section-title">Uçuş 2</h2>
+                <p class="section-content">Örnek uçuş açıklaması.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include('partials/_footer_main') %>

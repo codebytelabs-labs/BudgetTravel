@@ -29,4 +29,18 @@ async function generateHotels(prompt) {
   return response.choices[0].message.content;
 }
 
-module.exports = { generateItinerary, generateFlights, generateHotels };
+async function generateAll(prompts) {
+  try {
+    const [itinerary, flights, hotels] = await Promise.all([
+      generateItinerary(prompts.itinerary),
+      generateFlights(prompts.flights),
+      generateHotels(prompts.hotels),
+    ]);
+    return { itinerary, flights, hotels };
+  } catch (error) {
+    console.error('Error generating data:', error);
+    throw error;
+  }
+}
+
+module.exports = { generateItinerary, generateFlights, generateHotels, generateAll};
