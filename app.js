@@ -51,7 +51,7 @@ app.use('/api', chatbotRoutes);
 const port = process.env.PORT || 3000;
 
 http.listen(port, '0.0.0.0', () => {
-  console.log(`Sunucu çalışıyor, IP: ${ipAddress}, Port: ${port}`);
+  console.log(`Sunucu çalışıyor, IP: ${'0.0.0.0'}, Port: ${port}`);
 });
 
 // 404 sayfası yönlendirmesi
