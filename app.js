@@ -7,7 +7,7 @@ const http = require('http').Server(app);
 require("dotenv").config();
 
 
-const chatbotRoutes = require("./routes/chatbot");
+const chatbotRoutes = require("./routes/result");
 
 
 app.set('views', path.join(__dirname, 'views'));

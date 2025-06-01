@@ -1,68 +1,86 @@
 <%- include('partials/_header_main') %>
 
-<div class="ana-container-grid">
-    <div id="chatbot-result-container" class="chatbot-result compact openai-style">
-        <h1 id="result-title" class="result-title">Oluşturulan Seyahat Planı</h1>
+    <div class="ana-container-grid">
+        <div id="chatbot-result-container" class="chatbot-result compact openai-style">
+            <h1 id="result-title" class="result-title">Oluşturulan Seyahat Planı</h1>
 
-        <div class="results-grid">
-            <div class="result-section" id="itinerary-section">
-                <h2 class="section-title">Seyahat Planı</h2>
-                <p class="section-content" id="itinerary-content"><%= itinerary %></p>
+            <div class="results-grid">
+                <div class="result-section" id="itinerary-section">
+                    <h2 class="section-title">Seyahat Planı</h2>
+                    <p class="section-content" id="itinerary-content">
+                        <%= itinerary %>
+                    </p>
+                </div>
+
+                <div class="result-section" id="flights-section">
+                    <h2 class="section-title">Uçuşlar</h2>
+                    <p class="section-content" id="flights-content">
+                        <%= flights %>
+                    </p>
+                </div>
+
+                <div class="result-section" id="hotels-section">
+                    <h2 class="section-title">Oteller</h2>
+                    <p class="section-content" id="hotels-content">
+                        <%= hotels %>
+                    </p>
+                </div>
             </div>
-
-            <div class="result-section" id="flights-section">
-                <h2 class="section-title">Uçuşlar</h2>
-                <p class="section-content" id="flights-content"><%= flights %></p>
+        </div>
+        <% if (typeof googleAttractions !== 'undefined' && googleAttractions.length > 0) { %>
+            <div id="mekanlar-container" class="chatbot-result compact openai-style">
+              <h1 class="result-title">Mekanlar</h1>
+              <div class="results-grid">
+                <% googleAttractions.forEach(place => { %>
+                  <div class="result-section">
+                    <h2 class="section-title"><%= place.name %></h2>
+                    <p class="section-content">
+                      <%= place.formatted_address %><br/>
+                      <strong>Rating:</strong> <%= place.rating %>
+                    </p>
+                    <% if (place.reviews && place.reviews.length > 0) { %>
+                      <ul>
+                        <% place.reviews.slice(0, 2).forEach(review => { %>
+                          <li><strong><%= review.author_name %>:</strong> <%= review.text %></li>
+                        <% }) %>
+                      </ul>
+                    <% } %>
+                  </div>
+                <% }) %>
+              </div>
             </div>
-
-            <div class="result-section" id="hotels-section">
-                <h2 class="section-title">Oteller</h2>
-                <p class="section-content" id="hotels-content"><%= hotels %></p>
+          <% } else { %>
+            <p class="section-content">Hiç mekan bulunamadı.</p>
+          <% } %>
+        
+          <% if (typeof googleHotels !== 'undefined' && googleHotels.length > 0) { %>
+            <div id="oteller-container" class="chatbot-result compact openai-style">
+              <h1 class="result-title">Oteller</h1>
+              <div class="results-grid">
+                <% googleHotels.forEach(hotel => { %>
+                  <div class="result-section">
+                    <h2 class="section-title"><%= hotel.name %></h2>
+                    <p class="section-content"><%= hotel.formatted_address %> - <%= hotel.rating %>⭐</p>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          <% } else { %>
+            <p>Hiç otel bulunamadı.</p>
+          <% } %>
+        <div id="ucuslar-container" class="chatbot-result compact openai-style">
+            <h1 class="result-title">Uçuşlar</h1>
+            <div class="results-grid">
+                <div class="result-section">
+                    <h2 class="section-title">Uçuş 1</h2>
+                    <p class="section-content">Örnek uçuş açıklaması.</p>
+                </div>
+                <div class="result-section">
+                    <h2 class="section-title">Uçuş 2</h2>
+                    <p class="section-content">Örnek uçuş açıklaması.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="mekanlar-container" class="chatbot-result compact openai-style">
-        <h1 class="result-title">Mekanlar</h1>
-        <div class="results-grid">
-            <div class="result-section">
-                <h2 class="section-title">Mekan 1</h2>
-                <p class="section-content">Örnek mekan açıklaması.</p>
-            </div>
-            <div class="result-section">
-                <h2 class="section-title">Mekan 2</h2>
-                <p class="section-content">Örnek mekan açıklaması.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="oteller-container" class="chatbot-result compact openai-style">
-        <h1 class="result-title">Oteller</h1>
-        <div class="results-grid">
-            <div class="result-section">
-                <h2 class="section-title">Otel 1</h2>
-                <p class="section-content">Örnek otel açıklaması.</p>
-            </div>
-            <div class="result-section">
-                <h2 class="section-title">Otel 2</h2>
-                <p class="section-content">Örnek otel açıklaması.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="ucuslar-container" class="chatbot-result compact openai-style">
-        <h1 class="result-title">Uçuşlar</h1>
-        <div class="results-grid">
-            <div class="result-section">
-                <h2 class="section-title">Uçuş 1</h2>
-                <p class="section-content">Örnek uçuş açıklaması.</p>
-            </div>
-            <div class="result-section">
-                <h2 class="section-title">Uçuş 2</h2>
-                <p class="section-content">Örnek uçuş açıklaması.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<%- include('partials/_footer_main') %>
+    <%- include('partials/_footer_main') %>
