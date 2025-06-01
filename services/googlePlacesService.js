@@ -26,7 +26,7 @@ async function getPlaceDetails(placeId) {
       params: {
         place_id: placeId,
         fields: 'name,formatted_address,rating,types,reviews',
-        key: GOOGLE_API_KEY
+        key: GOOGLE_MAPS_API_KEY
       }
     });
     return response.data.result;
