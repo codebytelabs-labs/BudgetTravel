@@ -7,7 +7,7 @@ async function getPlaceId(query) {
     const response = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
       params: {
         query,
-        key: GOOGLE_API_KEY
+        key: GOOGLE_MAPS_API_KEY
       }
     });
     if (response.data.results.length > 0) {
