@@ -1,5 +1,5 @@
 const axios = require('axios');
-const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY || 'YOUR_API_KEY_HERE';
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY || 'YOUR_API_KEY_HERE';
 
 // Helper: Get place ID from text query
 async function getPlaceId(query) {
