@@ -24,9 +24,16 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--<script>
+                    window.jQuery ||
+                      document.write(
+                        decodeURIComponent('%3Cscript src="js/jquery.min.js"%3E%3C/script%3E')
+                      );
+               </script> -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
@@ -34,6 +41,8 @@
 </head>
 
 <body>
+
+
     <header class="main-header">
         <nav class="nav-container">
             <div class="logo">
@@ -67,29 +76,16 @@
                         <span>iOS</span>
                     </a>
                 </div>
-                
-                <div class="rainbow-buttons" id="authButtonsContainer"> 
-                    <a href="/signin" class="rainbow-button signin" id="signinLink">
+                <div class="rainbow-buttons">
+                    <a href="/signin" class="rainbow-button signin">
                         <i class="fas fa-sign-in-alt"></i>
                         Giriş Yap
                     </a>
-                    <a href="/signup" class="rainbow-button signup" id="signupLink">
+                    <a href="/signup" class="rainbow-button signup">
                         <i class="fas fa-user-plus"></i>
                         Kayıt Ol
                     </a>
                 </div>
-                
-                <div class="profile-menu-container" id="profileMenuContainer">
-                    <div class="profile-icon">
-                        <span class="initial" id="profileInitial"></span> 
-                        </div>
-                    <ul class="dropdown-menu" id="profileDropdownMenu">
-                        <li><a href="/profile">Profilim</a></li>
-                        <li><a href="/settings">Ayarlar</a></li>
-                        <li><a href="/logout">Çıkış Yap</a></li>
-                    </ul>
-                </div>
-
                 <div class="search-container">
                     <button class="search-toggle" id="searchToggle">
                         <i class="fas fa-search"></i>
@@ -101,86 +97,27 @@
                         </button>
                     </div>
                 </div>
+                <div class="dropdown user-dropdown">
+                    <a href="#" class="account-icon dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="/profile">👤 Profil</a></li>
+                        <li><a class="dropdown-item" href="/settings">⚙️ Ayarlar</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item logout" href="/logout">🚪 Çıkış Yap</a></li>
+                    </ul>
                 </div>
+            </div>
         </nav>
     </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementleri seçiyoruz
-            const authButtonsContainer = document.getElementById('authButtonsContainer'); // Giriş/Kayıt butonlarını içeren div
-            const profileMenuContainer = document.getElementById('profileMenuContainer');
-            const profileDropdownMenu = document.getElementById('profileDropdownMenu');
-            const profileInitial = document.getElementById('profileInitial');
-            
-            // Kullanıcının oturum durumunu ve kullanıcı adını localStorage'dan alıyoruz
-            // Güvenlik için bu kontrolün sunucu tarafında da yapıldığından emin olun!
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            const username = localStorage.getItem('loggedInUsername'); 
-
-            // Navbar'daki öğelerin görünürlüğünü ayarlama mantığı
-            if (isLoggedIn) {
-                authButtonsContainer.classList.add('hidden'); // Giriş/Kayıt butonlarını gizle
-                profileMenuContainer.style.display = 'block'; // Profil menüsünü göster
-
-                if (username) {
-                    profileInitial.textContent = username.charAt(0).toUpperCase(); // Kullanıcı adının ilk harfini al
-                } else {
-                    profileInitial.textContent = 'M'; // Kullanıcı adı yoksa varsayılan baş harf
-                }
-
-            } else {
-                authButtonsContainer.classList.remove('hidden'); // Giriş/Kayıt butonlarını göster
-                profileMenuContainer.style.display = 'none'; // Profil menüsünü gizle
-            }
-
-            // Profil ikonuna tıklayınca menüyü aç/kapa
-            profileMenuContainer.addEventListener('click', function(event) {
-                event.stopPropagation(); // Olayın daha geniş alanlara yayılmasını engelle
-                profileDropdownMenu.classList.toggle('show');
-            });
-
-            // Menü dışına tıklayınca menüyü kapat
-            document.addEventListener('click', function(event) {
-                if (!profileMenuContainer.contains(event.target)) {
-                    profileDropdownMenu.classList.remove('show');
-                }
-            });
-
-            // --- Mevcut Hamburger menü ve Arama kutusu JS'niz (script.js dosyanızda da olabilir) ---
-            // Bu kısım genellikle script.js dosyanızda bulunur. Eğer oradaysa, buraya kopyalamayın.
-            // Eğer yoksa, aşağıdakileri eklemeniz gerekir:
-
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const navMenu = document.getElementById('navMenu');
-            if (hamburgerMenu && navMenu) {
-                hamburgerMenu.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    hamburgerMenu.classList.toggle('active'); // Hamburger ikonunun da değişmesini sağlayabilir
-                });
-            }
-
-            const searchToggle = document.getElementById('searchToggle');
-            const searchBox = document.getElementById('searchBox');
-            const searchClose = document.getElementById('searchClose');
-            const searchContainer = document.querySelector('.search-container'); 
-
-            if (searchToggle && searchBox && searchClose && searchContainer) {
-                searchToggle.addEventListener('click', () => {
-                    searchBox.classList.add('active');
-                    searchBox.querySelector('input').focus();
-                });
-                searchClose.addEventListener('click', () => {
-                    searchBox.classList.remove('active');
-                });
-                document.addEventListener('click', (event) => {
-                    if (!searchContainer.contains(event.target) && !searchBox.contains(event.target) && searchBox.classList.contains('active')) {
-                        searchBox.classList.remove('active');
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-y4qU4FZtdqsBgDU9ipw3EV5EfZGkRbVnMbm4jRPLs9niNkL7qEb8sy3cZmfL28Ol"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

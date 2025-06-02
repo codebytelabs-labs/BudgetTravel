@@ -132,7 +132,7 @@ body {
 .destinations-section {
     padding: 100px 20px;
     background-color: #f5f5f7;
-    
+
 }
 
 .destinations-grid {
@@ -348,6 +348,7 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
 }
 
 .nav-right a {
@@ -362,50 +363,61 @@ body {
 }
 
 .rainbow-button {
-    display: inline-flex; /* İkon ve metnin yan yana durması için */
+    display: inline-flex;
+    /* İkon ve metnin yan yana durması için */
     align-items: center;
-    gap: 5px; /* İkon ile metin arası boşluk */
+    gap: 5px;
+    /* İkon ile metin arası boşluk */
     padding: 8px 15px;
     border-radius: 20px;
     text-decoration: none;
     color: white;
     font-weight: bold;
     transition: 0.3s ease;
-    font-size: 0.95em; /* Daha küçük font */
+    font-size: 0.95em;
+    /* Daha küçük font */
 }
 
 .rainbow-button.signin {
-    background-color: #ffffff; /* Mavi */
+    background-color: #ffffff;
+    /* Mavi */
 }
 
 
 .rainbow-button.signup {
-    background-color: #ffffff; /* Gri */
+    background-color: #ffffff;
+    /* Gri */
 }
 
 
 /* --- Profil Menüsü Stilleri --- */
 .profile-menu-container {
-    position: relative;
-    /* Varsayılan olarak gizli kalacak, JS ile gösterilecek */
-    display: none; 
-    margin-left: 15px; /* App butonları ile profil menüsü arasına boşluk */
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-left: 15px;
+    display: none;
+    z-index: 1100;
 }
 
 .profile-icon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f0f0f0; /* Varsayılan arka plan */
+    background-color: #f0f0f0;
+    /* Varsayılan arka plan */
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #28a745; /* İkon rengi */
+    color: #28a745;
+    /* İkon rengi */
     font-size: 1.5em;
     overflow: hidden;
-    border: 2px solid white; /* Beyaz çerçeve */
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    cursor: pointer; /* Tıklanabilir olduğunu belirt */
+    border: 2px solid white;
+    /* Beyaz çerçeve */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    /* Tıklanabilir olduğunu belirt */
 }
 
 .profile-icon img {
@@ -416,28 +428,25 @@ body {
 
 .profile-icon .initial {
     font-weight: bold;
-    font-size: 1.6em; /* Baş harfin boyutu */
+    font-size: 1.6em;
+    /* Baş harfin boyutu */
     line-height: 1;
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 55px; /* Profil ikonunun altında boşluk bırak */
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: none;
     list-style: none;
-    padding: 10px 0;
-    margin: 0;
-    min-width: 160px;
+    position: absolute;
     z-index: 1000;
-    display: none; /* Varsayılan olarak gizli */
+    background-color: white;
+    min-width: 160px;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0;
 }
 
+.dropdown:hover .dropdown-menu,
 .dropdown-menu.show {
-    display: block; /* Açıldığında göster */
+    display: block;
 }
 
 .dropdown-menu li a {
@@ -445,24 +454,94 @@ body {
     padding: 10px 20px;
     color: #333;
     text-decoration: none;
-    font-size: 0.95em; /* Menü öğeleri fontu küçültüldü */
+    font-size: 0.95em;
+    /* Menü öğeleri fontu küçültüldü */
     white-space: nowrap;
+}
+
+.user-dropdown .dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    /* Beyaz arka plan */
+    border: 1px solid #ddd;
+    /* Açık gri border */
+    border-radius: 8px;
+    /* Yuvarlatılmış köşeler */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Hafif gölge efekti */
+    min-width: 150px;
+    /* Minimum genişlik */
+}
+
+.user-dropdown .dropdown-menu li {
+    padding: 10px 15px;
+    /* Menü öğelerine iç boşluk */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.user-dropdown .dropdown-menu li:hover {
+    background-color: #f5f5f5;
+    /* Hover rengi */
+}
+
+/* Divider çizgisi */
+.user-dropdown .dropdown-divider {
+    margin: 0.5rem 0;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* Çıkış yap öğesi için hafif uyarı rengi */
+.user-dropdown .dropdown-item.logout {
+    color: #d9534f;
+}
+
+.user-dropdown .dropdown-item.logout:hover {
+    background-color: #fff0f0;
+    color: #c9302c;
+}
+
+/* Kullanıcı ikonu için küçük margin */
+.account-icon i {
+    font-size: 18px;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.account-icon:hover i {
+    color: #000;
+}
+
+@keyframes dropdownFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .dropdown-menu li a:hover {
     background-color: #f5f5f5;
-    color: #28a745; /* Hover rengi temaya uygun */
+    color: #28a745;
+    /* Hover rengi temaya uygun */
 }
 
 .dropdown-menu li:last-child a {
-    border-top: 1px solid #eee; /* Çıkış yap öncesi çizgi */
+    border-top: 1px solid #eee;
+    /* Çıkış yap öncesi çizgi */
     margin-top: 5px;
     padding-top: 10px;
 }
 
 /* Gizli öğeler için CSS */
 .hidden {
-    display: none !important;
+    display: flex !important;
 }
 
 /* Responsive Tasarım */
@@ -470,7 +549,7 @@ body {
     .nav-links {
         display: none;
     }
-    
+
     .nav-container {
         justify-content: space-between;
     }
@@ -623,11 +702,12 @@ body {
 
 /* Responsive Tasarım */
 @media (max-width: 768px) {
+
     .routes-grid,
     .offers-container {
         grid-template-columns: 1fr;
     }
-    
+
     .route-card,
     .offer-card {
         max-width: 400px;
@@ -763,12 +843,10 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(61, 220, 132, 0.1),
-        transparent
-    );
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(61, 220, 132, 0.1),
+            transparent);
     transform: rotate(45deg);
     animation: shine 4s ease-in-out infinite;
     transition: opacity 0.2s ease;
@@ -804,12 +882,10 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0, 122, 255, 0.1),
-        transparent
-    );
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(0, 122, 255, 0.1),
+            transparent);
     transform: rotate(45deg);
     animation: shine 4s ease-in-out infinite;
     transition: opacity 0.2s ease;
@@ -824,9 +900,11 @@ body {
     0% {
         transform: translateX(-100%) rotate(45deg);
     }
+
     50% {
         transform: translateX(100%) rotate(45deg);
     }
+
     100% {
         transform: translateX(100%) rotate(45deg);
     }
@@ -1303,7 +1381,7 @@ body {
     transform-origin: center;
     cursor: pointer;
     background: #fff;
-    border:1px solid #808000;
+    border: 1px solid #808000;
     background-clip: padding-box;
 }
 
@@ -1314,7 +1392,7 @@ body {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    border:2px solid;
+    border: 2px solid;
     z-index: -1;
     border-radius: 22px;
     animation: glowing 20s linear infinite;
@@ -1339,9 +1417,11 @@ body {
     0% {
         background-position: 0 0;
     }
+
     50% {
         background-position: 400% 0;
     }
+
     100% {
         background-position: 0 0;
     }
@@ -1359,7 +1439,7 @@ body {
     border: 1px solid rgba(46, 125, 50, 0.3);
 }
 
-.rainbow-button.signin:hover{
+.rainbow-button.signin:hover {
     color: #388E3C;
 }
 
@@ -1376,12 +1456,15 @@ body {
 
 
 .profile-container {
-    max-width: 1000px; /* Daha geniş alan */
+    max-width: 1000px;
+    /* Daha geniş alan */
     margin: 40px auto;
-    padding: 20px 30px; /* Yanlardan daha fazla boşluk */
+    padding: 20px 30px;
+    /* Yanlardan daha fazla boşluk */
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Daha hafif gölge */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    /* Daha hafif gölge */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: #333;
 }
@@ -1392,60 +1475,75 @@ body {
 }
 
 .profile-header h1 {
-    font-size: 2.2em; /* Biraz küçültüldü */
+    font-size: 2.2em;
+    /* Biraz küçültüldü */
     color: #222;
     margin-bottom: 8px;
 }
 
 .profile-header p {
-    font-size: 0.95em; /* Küçültüldü */
+    font-size: 0.95em;
+    /* Küçültüldü */
     color: #777;
 }
 
 /* Tab Başlıkları (Microsoft TabbedMdiManager benzeri) */
 .tab-navigation {
     display: flex;
-    overflow-x: auto; /* Küçük ekranlarda kaydırma */
+    overflow-x: auto;
+    /* Küçük ekranlarda kaydırma */
     border-bottom: 1px solid #e0e0e0;
     margin-bottom: 25px;
-    -webkit-overflow-scrolling: touch; /* iOS'ta pürüzsüz kaydırma */
+    -webkit-overflow-scrolling: touch;
+    /* iOS'ta pürüzsüz kaydırma */
 }
 
 .tab-button {
-    padding: 12px 20px; /* Daha dolgun butonlar */
-    font-size: 0.9em; /* Font küçültüldü */
+    padding: 12px 20px;
+    /* Daha dolgun butonlar */
+    font-size: 0.9em;
+    /* Font küçültüldü */
     font-weight: 600;
     color: #666;
     background-color: transparent;
     border: none;
-    border-bottom: 3px solid transparent; /* Varsayılan alt çizgi */
+    border-bottom: 3px solid transparent;
+    /* Varsayılan alt çizgi */
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease;
-    white-space: nowrap; /* Başlıkların tek satırda kalmasını sağlar */
+    white-space: nowrap;
+    /* Başlıkların tek satırda kalmasını sağlar */
 }
 
 .tab-button:hover {
-    color: #007bff; /* Hover rengi (site temasına uygun) */
+    color: #007bff;
+    /* Hover rengi (site temasına uygun) */
 }
 
 .tab-button.active {
-    color: #28a745; /* Sitenizin yeşil teması */
-    border-bottom-color: #28a745; /* Aktif sekme alt çizgi rengi */
+    color: #28a745;
+    /* Sitenizin yeşil teması */
+    border-bottom-color: #28a745;
+    /* Aktif sekme alt çizgi rengi */
     font-weight: 700;
 }
 
 /* Tab İçerikleri */
 .tab-content {
-    display: none; /* Varsayılan olarak tüm içerikler gizli */
-    padding: 15px 0; /* İçerik boşluğu */
+    display: none;
+    /* Varsayılan olarak tüm içerikler gizli */
+    padding: 15px 0;
+    /* İçerik boşluğu */
 }
 
 .tab-content.active {
-    display: block; /* Aktif içerik görünür */
+    display: block;
+    /* Aktif içerik görünür */
 }
 
 .content-section h3 {
-    font-size: 1.4em; /* Başlık fontu */
+    font-size: 1.4em;
+    /* Başlık fontu */
     color: #333;
     margin-bottom: 15px;
     border-bottom: 1px solid #f0f0f0;
@@ -1461,7 +1559,8 @@ body {
 .content-list li {
     padding: 10px 0;
     border-bottom: 1px solid #f8f8f8;
-    font-size: 0.9em; /* İçerik listesi fontu */
+    font-size: 0.9em;
+    /* İçerik listesi fontu */
     color: #555;
     display: flex;
     justify-content: space-between;
@@ -1525,6 +1624,7 @@ body {
     font-size: 0.85em;
     transition: background-color 0.2s ease;
 }
+
 .setting-item button:hover {
     background-color: #218838;
 }
@@ -1542,13 +1642,16 @@ body {
         margin: 20px;
         padding: 15px;
     }
+
     .tab-button {
         font-size: 0.85em;
         padding: 10px 15px;
     }
+
     .profile-header h1 {
         font-size: 1.8em;
     }
+
     .profile-header p {
         font-size: 0.85em;
     }
@@ -1781,68 +1884,106 @@ body {
 
 /* Küçük Metin Stili */
 .small-text {
-    font-size: 12px; /* İstediğiniz boyut */
-    color: #007aff; /* Apple mavi rengi */
-    text-decoration: none; /* Altı çizili olmaması için */
+    font-size: 12px;
+    /* İstediğiniz boyut */
+    color: #007aff;
+    /* Apple mavi rengi */
+    text-decoration: none;
+    /* Altı çizili olmaması için */
 }
 
 .small-text:hover {
-    text-decoration: underline; /* Hover durumunda altı çizili olması için */
+    text-decoration: underline;
+    /* Hover durumunda altı çizili olması için */
 }
 
 /* ALFA Sürümü Banner Stili */
 .alpha-banner {
-    background-color: #2E7D32; /* Yeşil dolgu rengi */
-    color: #fff; /* Beyaz yazı rengi */
-    text-align: center; /* Ortalanmış metin */
-    padding: 15px; /* İç boşluk */
-    font-size: 20px; /* Yazı boyutu */
-    font-weight: bold; /* Kalın yazı */
-    border-radius: 5px; /* Yuvarlak köşeler */
-    position: relative; /* Konumlandırma için */
-    top: 20px; /* Üstten boşluk */
-    margin: 0 auto; /* Ortalamak için */
-    max-width: 300px; /* Maksimum genişlik */
-    z-index: 10; /* Diğer elemanların üstünde görünmesi için */
+    background-color: #2E7D32;
+    /* Yeşil dolgu rengi */
+    color: #fff;
+    /* Beyaz yazı rengi */
+    text-align: center;
+    /* Ortalanmış metin */
+    padding: 15px;
+    /* İç boşluk */
+    font-size: 20px;
+    /* Yazı boyutu */
+    font-weight: bold;
+    /* Kalın yazı */
+    border-radius: 5px;
+    /* Yuvarlak köşeler */
+    position: relative;
+    /* Konumlandırma için */
+    top: 20px;
+    /* Üstten boşluk */
+    margin: 0 auto;
+    /* Ortalamak için */
+    max-width: 300px;
+    /* Maksimum genişlik */
+    z-index: 10;
+    /* Diğer elemanların üstünde görünmesi için */
 }
 
 /* Console Section Stili */
 .console-section {
     padding: 20px;
-    background-color: #1e1e1e; /* Koyu arka plan */
-    border-radius: 10px; /* Yuvarlak köşeler */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Gölge efekti */
-    margin-top: 20px; /* Üstten boşluk */
+    background-color: #1e1e1e;
+    /* Koyu arka plan */
+    border-radius: 10px;
+    /* Yuvarlak köşeler */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Gölge efekti */
+    margin-top: 20px;
+    /* Üstten boşluk */
 }
 
 .console-container {
-    overflow: auto; /* Taşan içeriği kaydırmak için */
+    overflow: auto;
+    /* Taşan içeriği kaydırmak için */
 }
 
 .console-output {
-    color: #ffffff; /* Yazı rengi */
-    font-family: 'Courier New', Courier, monospace; /* Monospace yazı tipi */
-    white-space: pre; /* Boşlukları korumak için */
-    font-size: 16px; /* Yazı boyutu */
-    height: 200px; /* Yükseklik */
-    overflow-y: auto; /* Dikey kaydırma çubuğu */
-    padding: 10px; /* İç boşluk */
+    color: #ffffff;
+    /* Yazı rengi */
+    font-family: 'Courier New', Courier, monospace;
+    /* Monospace yazı tipi */
+    white-space: pre;
+    /* Boşlukları korumak için */
+    font-size: 16px;
+    /* Yazı boyutu */
+    height: 200px;
+    /* Yükseklik */
+    overflow-y: auto;
+    /* Dikey kaydırma çubuğu */
+    padding: 10px;
+    /* İç boşluk */
 }
 
 .console-input {
-    width: 100%; /* Genişlik */
-    padding: 10px; /* İç boşluk */
-    border: none; /* Kenar yok */
-    border-radius: 5px; /* Yuvarlak köşeler */
-    font-size: 16px; /* Yazı boyutu */
-    color: #1d1d1f; /* Yazı rengi */
-    background-color: #fff; /* Arka plan rengi */
-    margin-top: 10px; /* Üstten boşluk */
+    width: 100%;
+    /* Genişlik */
+    padding: 10px;
+    /* İç boşluk */
+    border: none;
+    /* Kenar yok */
+    border-radius: 5px;
+    /* Yuvarlak köşeler */
+    font-size: 16px;
+    /* Yazı boyutu */
+    color: #1d1d1f;
+    /* Yazı rengi */
+    background-color: #fff;
+    /* Arka plan rengi */
+    margin-top: 10px;
+    /* Üstten boşluk */
 }
 
 .console-input:focus {
-    outline: none; /* Kenar çerçevesi yok */
-    border: 1px solid #2E7D32; /* Odaklanma rengi */
+    outline: none;
+    /* Kenar çerçevesi yok */
+    border: 1px solid #2E7D32;
+    /* Odaklanma rengi */
 }
 
 /* Chatbot Form Stili */
@@ -1928,7 +2069,9 @@ body {
 
 /* Responsive tasarım */
 @media (max-width: 768px) {
-    .chatbot-form, .chatbot-result {
+
+    .chatbot-form,
+    .chatbot-result {
         width: 95%;
     }
 }
@@ -1937,7 +2080,7 @@ body {
 #chatbot-result-container.compact.openai-style {
     background: #f7f8fa;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     padding: 32px 32px 24px 32px;
     margin: 48px auto;
     max-width: 900px;
@@ -1988,7 +2131,7 @@ body {
 #mekanlar-container.compact.openai-style {
     background: #f7f8fa;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     padding: 32px 32px 24px 32px;
     margin: 48px auto;
     max-width: 900px;
@@ -2038,7 +2181,7 @@ body {
 #oteller-container.compact.openai-style {
     background: #f7f8fa;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     padding: 32px 32px 24px 32px;
     margin: 48px auto;
     max-width: 900px;
@@ -2088,7 +2231,7 @@ body {
 #ucuslar-container.compact.openai-style {
     background: #f7f8fa;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     padding: 32px 32px 24px 32px;
     margin: 48px auto;
     max-width: 900px;
@@ -2156,7 +2299,7 @@ body {
     max-width: 1800px;
 }
 
-.ana-container-grid > .chatbot-result {
+.ana-container-grid>.chatbot-result {
     flex: 1 1 340px;
     min-width: 320px;
     max-width: 420px;
@@ -2167,7 +2310,8 @@ body {
         gap: 18px;
         max-width: 98vw;
     }
-    .ana-container-grid > .chatbot-result {
+
+    .ana-container-grid>.chatbot-result {
         min-width: 260px;
         max-width: 98vw;
     }
@@ -2180,7 +2324,8 @@ body {
         gap: 16px;
         margin: 12px 0;
     }
-    .ana-container-grid > .chatbot-result {
+
+    .ana-container-grid>.chatbot-result {
         width: 98vw;
         min-width: unset;
         max-width: 98vw;
@@ -2190,7 +2335,7 @@ body {
 .chatbot-form-container.compact.openai-style {
     background: #f7f8fa;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
     padding: 48px 48px 32px 48px;
     margin: 48px auto;
     max-width: 1400px;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { pool } = require('../db');
 const {
   generateItinerary,
   generateFlights,
@@ -37,6 +37,35 @@ router.post('/chatbot', async (req, res) => {
   }
 });
 
+function isAuthenticated(req, res, next) {
+  if (req.session && req.session.userId) {
+    return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect('/signin?message=GirisYapmalisiniz');
+}
+
+// Taslak seyahat planı kaydetme
+router.post('/save-draft', isAuthenticated, (req, res) => {
+  const { title, content } = req.body;
+  const userId = req.session.userId;
+
+  if (!title || !content) {
+    return res.status(400).send("Eksik veri");
+  }
+
+  const sql = "INSERT INTO travel_drafts (user_id, title, content) VALUES (?, ?, ?)";
+  pool.query(sql, [userId, title, content], (err, result) => {
+    if (err) {
+      console.error("Veritabanı hatası:", err);
+      return res.status(500).send("Bir hata oluştu.");
+    }
+
+    res.redirect('/profile#drafts');
+  });
+});
+
+
 router.get('/chatbot/result', (req, res) => {
   const {
     itinerary,
@@ -50,16 +79,18 @@ router.get('/chatbot/result', (req, res) => {
     return res.status(400).send("Eksik veriler: Seyahat planı, uçuşlar veya oteller bulunamadı.");
   }
 
-  
+  const chatbotResult = `${itinerary}\n\n${flights}\n\n${hotels}`;
 
   res.render('chatbot_result', {
     itinerary,
     flights,
     hotels,
     googleHotels,
-    googleAttractions
+    googleAttractions,
+    chatbotResult
   });
 });
+
 
 
 module.exports = router;

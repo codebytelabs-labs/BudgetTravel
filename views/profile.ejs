@@ -10,7 +10,7 @@
 
 <div class="profile-container">
     <div class="profile-header">
-        <h1>Hoş Geldin, <span id="profileUsername">Kullanıcı!</span></h1>
+        <h1>Hoş Geldin, <span id="profileUsername"><%= username %></span></h1>
         <p>Buradan seyahatlerini, taslak planlarını ve blog yazılarını yönetebilirsin.</p>
     </div>
 
@@ -110,13 +110,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Kullanıcı adını dinamik olarak yükle
         const usernameSpan = document.getElementById('profileUsername');
-        const username = localStorage.getItem('loggedInUsername'); // Giriş sonrası kaydettiğiniz username
-        if (username) {
-            usernameSpan.textContent = username;
-        } else {
-            usernameSpan.textContent = 'Misafir'; // Varsayılan değer
-        }
-
+        
         // Tab Yönetimi JavaScript
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
