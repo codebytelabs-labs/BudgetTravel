@@ -50,6 +50,8 @@ router.get('/chatbot/result', (req, res) => {
     return res.status(400).send("Eksik veriler: Seyahat planı, uçuşlar veya oteller bulunamadı.");
   }
 
+  
+
   res.render('chatbot_result', {
     itinerary,
     flights,
@@ -58,5 +60,6 @@ router.get('/chatbot/result', (req, res) => {
     googleAttractions
   });
 });
+
 
 module.exports = router;

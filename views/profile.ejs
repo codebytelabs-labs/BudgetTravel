@@ -1,0 +1,147 @@
+<%- include('partials/_header_main') %>
+
+<style>
+    /* Notion Vari ve Sekmeli Tasarım Stilleri */
+    body {
+        background-color: #f7f8fa; /* Açık gri arka plan */
+    }
+
+</style>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Hoş Geldin, <span id="profileUsername">Kullanıcı!</span></h1>
+        <p>Buradan seyahatlerini, taslak planlarını ve blog yazılarını yönetebilirsin.</p>
+    </div>
+
+    <div class="tab-navigation">
+        <button class="tab-button active" data-tab="travels">Seyehatlarım</button>
+        <button class="tab-button" data-tab="drafts">Taslak Planlar</button>
+        <button class="tab-button" data-tab="posts">Bloglar ve Postlar</button>
+        <button class="tab-button" data-tab="settings">Ayarlar</button> </div>
+
+    <div id="travels" class="tab-content active">
+        <div class="content-section">
+            <h3>Son Seyahatlerim</h3>
+            <ul class="content-list">
+                <li>
+                    <span>Paris, Fransa</span>
+                    <span class="date">Haziran 2024</span>
+                </li>
+                <li>
+                    <span>Kyoto, Japonya</span>
+                    <span class="date">Nisan 2024</span>
+                </li>
+                <li>
+                    <span>Roma, İtalya</span>
+                    <span class="date">Eylül 2023</span>
+                </li>
+            </ul>
+            <p class="no-content" style="display: none;">Henüz bir seyahatin yok.</p>
+            <a href="/my-travels" class="view-all-link">Tüm Seyahatlerimi Gör &raquo;</a>
+        </div>
+    </div>
+
+    <div id="drafts" class="tab-content">
+        <div class="content-section">
+            <h3>Kaydedilmiş Taslak Planlarım</h3>
+            <ul class="content-list">
+                <li>
+                    <span>Doğu Anadolu Turu</span>
+                    <span class="date">Taslak</span>
+                </li>
+                <li>
+                    <span>Yunan Adaları Gezisi</span>
+                    <span class="date">Taslak</span>
+                </li>
+            </ul>
+            <p class="no-content" style="display: none;">Kaydedilmiş taslak planın yok.</p>
+            <a href="/draft-plans" class="view-all-link">Tüm Taslak Planları Gör &raquo;</a>
+        </div>
+    </div>
+
+    <div id="posts" class="tab-content">
+        <div class="content-section">
+            <h3>Blog Yazılarım</h3>
+            <ul class="content-list">
+                <li>
+                    <span>En İyi Kamp Yerleri</span>
+                    <span class="date">Mayıs 2024</span>
+                </li>
+                <li>
+                    <span>Ekonomik Seyahat İpuçları</span>
+                    <span class="date">Nisan 2024</span>
+                </li>
+            </ul>
+            <p class="no-content" style="display: none;">Henüz bir blog yazın yok.</p>
+            <a href="/my-posts" class="view-all-link">Tüm Bloglarımı Gör &raquo;</a>
+        </div>
+    </div>
+
+    <div id="settings" class="tab-content">
+        <div class="content-section">
+            <h3>Hesap Ayarları</h3>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label for="setting-username">Kullanıcı Adı</label>
+                    <input type="text" id="setting-username" value="testuser" disabled>
+                    <button>Değiştir (Yakında)</button>
+                </div>
+                <div class="setting-item">
+                    <label for="setting-email">E-posta</label>
+                    <input type="email" id="setting-email" value="test@example.com">
+                    <button>Kaydet</button>
+                </div>
+                <div class="setting-item">
+                    <label for="setting-old-password">Eski Şifre</label>
+                    <input type="password" id="setting-old-password">
+                    <label for="setting-new-password">Yeni Şifre</label>
+                    <input type="password" id="setting-new-password">
+                    <button>Şifreyi Değiştir</button>
+                </div>
+                </div>
+            <p class="no-content" style="display: none;">Ayarlar burada.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Kullanıcı adını dinamik olarak yükle
+        const usernameSpan = document.getElementById('profileUsername');
+        const username = localStorage.getItem('loggedInUsername'); // Giriş sonrası kaydettiğiniz username
+        if (username) {
+            usernameSpan.textContent = username;
+        } else {
+            usernameSpan.textContent = 'Misafir'; // Varsayılan değer
+        }
+
+        // Tab Yönetimi JavaScript
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                // Tüm butonlardan 'active' sınıfını kaldır
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Tıklanan butona 'active' sınıfını ekle
+                button.classList.add('active');
+
+                // Tüm içerikleri gizle
+                tabContents.forEach(content => content.classList.remove('active'));
+                // Hedef içeriği göster
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Sayfa yüklendiğinde varsayılan olarak ilk sekmeyi etkinleştir
+        if (tabButtons.length > 0) {
+            tabButtons[0].click(); // İlk butona tıklayarak ilk sekmeyi aktif hale getir
+        }
+    });
+</script>
+
+<%- include('partials/_footer_main') %>

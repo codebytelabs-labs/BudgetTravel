@@ -2,8 +2,10 @@
     <div class="auth-container">
         <div class="auth-box">
             <h2>Hesap Oluştur</h2>
-            <form class="auth-form" action="/signup" method="POST">
-                <div class="form-group">
+
+            <div id="message" class="message" style="display: none;"></div>
+
+            <form id="signupForm" class="auth-form"> <div class="form-group">
                     <label for="username">Kullanıcı Adı</label>
                     <div class="input-group">
                         <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı girin" required>
@@ -48,5 +50,91 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Formun varsayılan gönderimini engelle
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsAccepted = document.querySelector('input[name="terms"]').checked;
+            const messageDiv = document.getElementById('message');
+
+            // Önceki mesajları temizle ve gizle
+            messageDiv.innerHTML = '';
+            messageDiv.className = 'message';
+            messageDiv.style.display = 'none';
+
+            // Basit istemci tarafı doğrulama
+            if (password !== confirmPassword) {
+                messageDiv.classList.add('error');
+                messageDiv.textContent = 'Şifreler uyuşmuyor!';
+                messageDiv.style.display = 'block';
+                return;
+            }
+            if (!termsAccepted) {
+                messageDiv.classList.add('error');
+                messageDiv.textContent = 'Kullanım koşullarını kabul etmelisiniz.';
+                messageDiv.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/register', { // Express API endpoint'iniz
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) { // HTTP durumu 200-299 arasındaysa
+                    messageDiv.classList.add('success');
+                    messageDiv.textContent = data.message || 'Kayıt başarılı!';
+                    messageDiv.style.display = 'block';
+                    // İsteğe bağlı: Başarılı kayıt sonrası giriş sayfasına yönlendir
+                    setTimeout(() => {
+                        window.location.href = '/signin';
+                    }, 2000); // 2 saniye sonra yönlendir
+                } else {
+                    messageDiv.classList.add('error');
+                    messageDiv.textContent = data.message || 'Kayıt başarısız oldu. Lütfen tekrar deneyin.';
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Kayıt işlemi sırasında hata oluştu:', error);
+                messageDiv.classList.add('error');
+                messageDiv.textContent = 'Bir hata oluştu. Sunucuya ulaşılamıyor veya ağ sorunu var.';
+                messageDiv.style.display = 'block';
+            }
+        });
+
+        // Mesaj divleri için basit CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            .message {
+                padding: 10px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .message.success {
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            .message.error {
+                background-color: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 
 <%- include('partials/_footer_main') %>

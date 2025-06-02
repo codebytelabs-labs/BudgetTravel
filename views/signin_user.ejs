@@ -3,8 +3,9 @@
         <div class="auth-box">
             <h2>Hoş Geldiniz</h2>
 
-            <form class="auth-form" action="/signin" method="POST">
-                <div class="form-group">
+            <div id="message" class="message" style="display: none;"></div>
+
+            <form id="signinForm" class="auth-form"> <div class="form-group">
                     <label for="username">Kullanıcı Adı veya E-posta</label>
                     <div class="input-group">
                         <input type="text" id="username" name="username" placeholder="Kullanıcı adınızı veya e-posta adresinizi girin" required>
@@ -36,4 +37,76 @@
         </div>
     </div>
 
-    <%- include('partials/_footer_main') %>
+    <script>
+        document.getElementById('signinForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Formun varsayılan gönderimini engelle
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Önceki mesajları temizle ve gizle
+            messageDiv.innerHTML = '';
+            messageDiv.className = 'message';
+            messageDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/auth/login', { // Express API endpoint'iniz
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) { // HTTP durumu 200-299 arasındaysa
+                    messageDiv.classList.add('success');
+                    messageDiv.textContent = data.message || 'Giriş başarılı!';
+                    messageDiv.style.display = 'block';
+
+                    // Giriş başarılıysa, kullanıcıyı bir kontrol paneline veya ana sayfaya yönlendir
+                    // **Önemli:** Gerçek uygulamada burada JWT token'ı client tarafında saklamanız veya sunucu tarafından bir session oluşturmanız gerekir.
+                    setTimeout(() => {
+                        window.location.href = '/profile'; // Örnek bir profile sayfası
+                    }, 1500); 
+                } else {
+                    messageDiv.classList.add('error');
+                    messageDiv.textContent = data.message || 'Giriş başarısız oldu. Lütfen tekrar deneyin.';
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Giriş işlemi sırasında hata oluştu:', error);
+                messageDiv.classList.add('error');
+                messageDiv.textContent = 'Bir hata oluştu. Sunucuya ulaşılamıyor veya ağ sorunu var.';
+                messageDiv.style.display = 'block';
+            }
+        });
+
+
+        // Mesaj divleri için basit CSS (auth-container stilinize ekleyebilirsiniz)
+        const style = document.createElement('style');
+        style.textContent = `
+            .message {
+                padding: 10px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                text-align: center;
+                font-weight: bold;
+            }
+            .message.success {
+                background-color: #d4edda;
+                color: #155724;
+                border: 1px solid #c3e6cb;
+            }
+            .message.error {
+                background-color: #f8d7da;
+                color: #721c24;
+                border: 1px solid #f5c6cb;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+<%- include('partials/_footer_main') %>

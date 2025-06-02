@@ -1,5 +1,5 @@
 const axios = require('axios');
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY || 'YOUR_API_KEY_HERE';
+const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY || 'YOUR_API_KEY_HERE';
 
 // Helper: Get place ID from text query
 async function getPlaceId(query) {
@@ -7,7 +7,7 @@ async function getPlaceId(query) {
     const response = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
       params: {
         query,
-        key: GOOGLE_MAPS_API_KEY
+        key: GOOGLE_API_KEY
       }
     });
     if (response.data.results.length > 0) {
@@ -26,7 +26,7 @@ async function getPlaceDetails(placeId) {
       params: {
         place_id: placeId,
         fields: 'name,formatted_address,rating,types,reviews',
-        key: GOOGLE_MAPS_API_KEY
+        key: GOOGLE_API_KEY
       }
     });
     return response.data.result;
@@ -36,17 +36,28 @@ async function getPlaceDetails(placeId) {
   }
 }
 
-// 🧠 Main Function: get all places and categorize
 async function getGooglePlaces(placeNames = [], city = '') {
   const places = [];
 
   for (const name of placeNames) {
-    const query = `${name} ${city}`;
+    const query = `${name} in ${city}`;
     const placeId = await getPlaceId(query);
-    if (!placeId) continue;
+
+    // Log any failures to get placeId
+    if (!placeId) {
+      console.warn(`❌ No place ID found for query: ${query}`);
+      continue;
+    }
 
     const placeDetails = await getPlaceDetails(placeId);
-    if (placeDetails) places.push(placeDetails);
+
+    if (
+      placeDetails &&
+      placeDetails.formatted_address &&
+      placeDetails.formatted_address.toLowerCase().includes(city.toLowerCase())
+    ) {
+      places.push(placeDetails);
+    }
   }
 
   const googleHotels = places.filter(
@@ -66,6 +77,8 @@ async function getGooglePlaces(placeNames = [], city = '') {
     googleAttractions
   };
 }
+
+
 
 module.exports = {
   getGooglePlaces

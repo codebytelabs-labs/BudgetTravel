@@ -1,17 +1,25 @@
 function extractPlaceNames(text) {
-    const keywords = ['cafe', 'hotel', 'restaurant', 'inn', 'valley', 'bay', 'district', 'tower', 'square', 'museum'];
+    const keywords = ['hotel', 'inn', 'museum', 'cafe', 'restaurant', 'tower', 'square', 'district', 'bay', 'valley', 'park'];
+    const found = new Set();
+
     const lines = text.split('\n');
-    const found = [];
 
     for (let line of lines) {
-        for (let keyword of keywords) {
-            const regex = new RegExp(`\\b([A-Z][\\w\\s]+${keyword}[\\w\\s]*)`, 'gi');
-            const matches = [...line.matchAll(regex)];
-            found.push(...matches.map(m => m[1].trim()));
+        // Only look at capitalized sequences followed by a keyword
+        const regex = /\b([A-Z][\w\s&'-]+(?:Hotel|Inn|Museum|Cafe|Restaurant|Tower|Square|District|Bay|Valley|Park))\b/g;
+
+        const matches = line.match(regex);
+        if (matches) {
+            matches.forEach(m => {
+                const clean = m.trim();
+                if (clean.length > 3 && !clean.toLowerCase().includes("can be")) {
+                    found.add(clean);
+                }
+            });
         }
     }
 
-    return [...new Set(found)];
+    return Array.from(found);
 }
 
 module.exports = { extractPlaceNames };
