@@ -14,7 +14,6 @@ if (dbType === 'postgres') {
             // Sadece production (Render) ortamında SSL gerekli
             // NODE_ENV 'production' ise ssl.rejectUnauthorized: false ayarı yapılmalı
             // Aksi takdirde yerelde 'development' ise bu ayarı kapatabiliriz.
-            // veya Render kendi bağlantı URL'sinde bunu hallediyor olabilir.
             // En güvenlisi ortam değişkenine göre ayarlamaktır.
             rejectUnauthorized: process.env.NODE_ENV !== 'development' // Geliştirme ortamında SSL sertifika doğrulamasını kapat
         }
@@ -38,9 +37,17 @@ if (dbType === 'postgres') {
 
 async function testDbConnection() {
     try {
-        const connection = await pool.getConnection();
-        console.log(`${dbType.toUpperCase()} veritabanına başarıyla bağlandı!`);
-        connection.release(); // Bağlantıyı havuza geri bırak
+        if (dbType === 'postgres') {
+            // <<< BURADA DEĞİŞİKLİK YAPILDI: PostgreSQL için pool.connect() kullanımı
+            const client = await pool.connect();
+            console.log('PostgreSQL veritabanına başarıyla bağlandı!');
+            client.release(); // Bağlantıyı havuza geri bırak
+        } else {
+            // MySQL için pool.getConnection() kullanımı
+            const connection = await pool.getConnection();
+            console.log('MySQL veritabanına başarıyla bağlandı!');
+            connection.release(); // Bağlantıyı havuza geri bırak
+        }
     } catch (error) {
         console.error(`${dbType.toUpperCase()} bağlantı hatası:`, error.message);
         process.exit(1); // Uygulamayı sonlandır
@@ -52,7 +59,8 @@ async function testDbConnection() {
 function formatSQL(sql, dbDialect) {
     if (dbDialect === 'postgres') {
         let i = 0;
-        return sql.replace(/\?/g, () => `$${++i}`);
+        // <<< BURADA DEĞİŞİKLİK YAPILDI: String içindeki \? gibi escaped ?'leri atlamak için regex
+        return sql.replace(/(?<!\\)\?/g, () => `$${++i}`);
     }
     return sql;
 }
