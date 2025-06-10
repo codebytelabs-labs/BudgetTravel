@@ -555,6 +555,68 @@ body {
     }
 }
 
+
+
+.feedback-message {
+    padding: 10px 15px;
+    margin-top: 15px; /* Buton ile mesaj arasına boşluk */
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0; /* Başlangıçta görünmez */
+    transition: opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.feedback-message.loading {
+    background-color: #ffe0b2; /* Açık turuncu */
+    color: #e65100; /* Koyu turuncu */
+    opacity: 1;
+}
+
+.feedback-message.success {
+    background-color: #d4edda; /* Açık yeşil */
+    color: #155724; /* Koyu yeşil */
+    opacity: 1;
+}
+
+.feedback-message.error {
+    background-color: #f8d7da; /* Açık kırmızı */
+    color: #721c24; /* Koyu kırmızı */
+    opacity: 1;
+}
+
+/* Kaydet butonu için basit bir stil (eğer yoksa) */
+.save-button {
+    background-color: #007bff; /* Mavi renk */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+.save-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Seyahat planı kaydetme bölümünü düzenlemek için (isteğe bağlı) */
+.travel-plan-save-section {
+    display: flex;
+    flex-direction: column; /* Buton ve mesajı alt alta sırala */
+    align-items: center; /* Yatayda ortala */
+    margin-top: 30px; /* Diğer içerikten boşluk */
+    padding: 20px;
+    border-top: 1px solid #eee; /* Üstüne ince bir çizgi */
+}
+
+
 /* Routes Section */
 .routes-section {
     padding: 100px 20px;

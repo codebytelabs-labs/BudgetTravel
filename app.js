@@ -6,9 +6,8 @@ const path = require('path');
 const app = express();
 const http = require('http').Server(app); // HTTP sunucusu
 require("dotenv").config(); // .env dosyasındaki değişkenleri yükle
-const { pool } = require('./db');
+const { pool , testDbConnection, formatSQL} = require('./db');
 // Veritabanı bağlantısı ve auth rotaları
-const { testDbConnection } = require('./db'); // db.js'den test fonksiyonunu al
 const authRoutes = require('./routes/authRoutes'); // Auth rotalarını al
 
 // Diğer rotalar (chatbotRoutes gibi)
@@ -110,17 +109,17 @@ app.post('/save-draft', isAuthenticated, (req, res) => {
   const userId = req.session.userId; // session'dan kullanıcı ID'si
 
   if (!title || !content) {
-    return res.status(400).send("Eksik veri");
+      return res.status(400).json({ success: false, message: "Eksik veri: Başlık ve içerik gereklidir." });
   }
 
   const sql = "INSERT INTO travel_drafts (user_id, title, content) VALUES (?, ?, ?)";
   pool.query(sql, [userId, title, content], (err, result) => {
-    if (err) {
-      console.error("Veritabanı hatası:", err);
-      return res.status(500).send("Bir hata oluştu.");
-    }
+      if (err) {
+          console.error("Veritabanı hatası:", err);
+          return res.status(500).json({ success: false, message: "Seyahat planı kaydedilirken bir hata oluştu." });
+      }
 
-    res.redirect('/profile#drafts'); // Taslaklara yönlendir
+      res.status(200).json({ success: true, message: "Seyahat planı başarıyla kaydedildi!" });
   });
 });
 
