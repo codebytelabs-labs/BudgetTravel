@@ -1,15 +1,13 @@
 // app.js
 const express = require('express');
 const session = require('express-session');
-const path = require('path');
-// const https = require('https'); // Eğer HTTPS sunucusu kullanmıyorsanız bu satırı kaldırabilirsiniz.
 const app = express();
+const path = require('path');
 const http = require('http').Server(app); // HTTP sunucusu
 require("dotenv").config(); // .env dosyasındaki değişkenleri yükle
 
-// PostgreSQL için oturum depolamasını ekle (connect-pg-simple)
-const pg = require('pg'); // pg kütüphanesini burada da alıyoruz (PgSession için gerekli olabilir)
-const PgSession = require('connect-pg-simple')(session); // connect-pg-simple'ı başlat
+// connect-pg-simple'ı session ile birlikte başlat
+const PgSession = require('connect-pg-simple')(session); 
 
 // db.js'den bağlantı havuzunu, test fonksiyonunu ve formatSQL'i alıyoruz
 const { pool, testDbConnection, formatSQL } = require('./db');
@@ -17,76 +15,83 @@ const { pool, testDbConnection, formatSQL } = require('./db');
 const authRoutes = require('./routes/authRoutes'); // Auth rotalarını al
 
 // Diğer rotalar (chatbotRoutes gibi)
-const chatbotRoutes = require("./routes/result");
+const chatbotRoutes = require("./routes/result"); // Örneğin: /api/chatbot gibi rotalar
+
+
+const port = process.env.PORT || 3000;
 
 // --- Middleware'ler ---
 // Middleware'lerin sırası önemlidir!
 
-// 1. Statik dosyalar için middleware (en üstte olmalı ki statik dosyalar hızlıca sunulsun)
-app.use(express.static('public'));
-// app.use(express.static(path.join(__dirname, 'public'))); // Yukarıdaki ile aynı işi yapar, birini kullanmak yeterli
+// 1. Statik dosyalar için middleware
+app.use(express.static(path.join(__dirname, 'public')));
 
-// 2. Body parser middleware'leri (JSON ve URL-encoded verileri işlemek için)
-// Bu middleware'ler, tüm POST/PUT/PATCH rotalarından ÖNCE tanımlanmalıdır ki req.body kullanılabilir olsun.
-app.use(express.json()); // JSON formatındaki istek body'lerini parse eder
-app.use(express.urlencoded({ extended: true })); // URL-encoded formatındaki istek body'lerini parse eder
-
+// 2. Body parser middleware'leri
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 
 // 3. Oturum (Session) middleware'i
-// Bu, req.session objesini kullanabilmek için tüm rotalardan ve diğer middleware'lerden önce gelmeli (body parser hariç).
-
-// session store'u ortam değişkenine göre ayarla
-const sessionStore = process.env.DB_DIALECT === 'postgres' && process.env.NODE_ENV === 'production'
+// PostgreSQL kullanıyorsanız (Render üzerinde büyük ihtimalle) PgSession kullanın.
+// Aksi halde MemoryStore (yerel geliştirme için) veya başka bir depolama kullanın.
+const sessionStore = process.env.DB_DIALECT === 'postgres'
     ? new PgSession({
         pool: pool, // db.js'den gelen PostgreSQL havuzunu kullan
-        tableName: 'session' // Oturum bilgilerinin saklanacağı tablo adı
+        tableName: 'session', // Oturum bilgilerinin saklanacağı tablo adı
+        // Render gibi üretim ortamlarında HTTPS kullanıldığında 'secure' çerezler için proxy ayarı:
+        // ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
     })
     : new session.MemoryStore(); // Lokal development veya MySQL kullanıyorsanız MemoryStore
 
 app.use(session({
     secret: process.env.SECRET_KEY || 'your-super-secret-key-fallback', // .env'den SECRET_KEY kullanın
     resave: false, // Oturum değişmediği sürece yeniden kaydetme
-    saveUninitialized: false, // Yeni, başlatılmamış oturumları kaydetme (daha iyi performans ve gizlilik)
-    store: sessionStore, // <<< BURADA DEĞİŞİKLİK YAPILDI: Oturum depolama çözümü eklendi
+    saveUninitialized: false, // Yeni, başlatılmamış oturumları kaydetme
+    store: sessionStore, // Oturum depolama çözümü
     cookie: {
-        secure: process.env.NODE_ENV === 'production', // Production ortamında HTTPS kullanılıyorsa true olmalı
-        httpOnly: true, // Tarayıcı tarafındaki JavaScript'ten çereze erişimi engeller (güvenlik)
-        maxAge: 1000 * 60 * 60 * 24 // 1 gün (isteğe bağlı: oturum süresi)
+        // secure: true olmalı eğer HTTPS kullanıyorsanız. Render üretimde HTTPS kullanır.
+        secure: process.env.NODE_ENV === 'production', 
+        httpOnly: true, // Tarayıcı tarafındaki JavaScript'ten çereze erişimi engeller
+        maxAge: 1000 * 60 * 60 * 24 // 1 gün (milisaniye cinsinden)
     }
 }));
 
-// 4. Veritabanı bağlantısını test et (uygulama başlamadan önce bağlantı kontrolü)
+// Vercel/Render gibi proxy arkasında çalışırken güvenli çerezler için
+app.set('trust proxy', 1); 
+
+// 4. Veritabanı bağlantısını test et
 testDbConnection();
 
-// 5. View Engine ayarları (middleware'lerden sonra olabilir)
+// 5. View Engine ayarları
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-//app.set('view engine','html'); // Eğer EJS kullanıyorsanız bu satır yorumda kalmalı
 
-app.set('trust proxy', 1); // Vercel gibi proxy arkasında çalışırken şart
+// --- res.locals.user Atamasını Yapan Middleware ---
+// Bu middleware, her istekte EJS şablonlarına `user` değişkenini aktarır.
+// **ÖNEMLİ:** Buradaki `req.session.user` objesi, `authController.js`'deki `loginUser` fonksiyonunda
+// `req.session.user = { userId: ..., username: ..., isLoggedIn: true };` şeklinde doğru ayarlanmalıdır.
+app.use((req, res, next) => {
+    // Debugging çıktılarını artık kaldırabiliriz, temiz bir kod için:
+    // console.log('Middleware - req.session (before res.locals):', req.session);
+    // console.log('Middleware - req.session.user (before res.locals):', req.session.user);
+
+    res.locals.user = req.session.user || null;
+
+    // console.log('Middleware - res.locals.user (after setting):', res.locals.user);
+    next();
+});
 
 // --- Kimlik Doğrulama Middleware'i ---
 // Bu middleware, sadece giriş yapmış kullanıcıların erişmesi gereken rotalara uygulanacak.
 function isAuthenticated(req, res, next) {
-    // req.session.userId veya req.session.username gibi oturumda bir kimlik bilgisi var mı kontrol et
-    if (req.session && req.session.userId) {
-        // Kullanıcı oturum açtıysa, isteği devam ettir.
-        return next();
+    // req.session.user.isLoggedIn kontrolü ile kullanıcının oturum açıp açmadığını kontrol et
+    // authController'da req.session.user objesi altına kaydettiğimiz isLoggedIn'i kullanıyoruz.
+    if (req.session && req.session.user && req.session.user.isLoggedIn) {
+        return next(); // Kullanıcı oturum açtıysa, isteği devam ettir.
     }
     // Oturum açmadıysa giriş sayfasına yönlendir ve mesaj göster
     req.session.returnTo = req.originalUrl; // Kullanıcının gelmek istediği URL'yi kaydet
-    res.redirect('/signin?message=GirisYapmalisiniz'); // Mesaj parametresi ekledim
+    res.redirect('/signin?message=GirisYapmalisiniz'); 
 }
-
-app.use((req, res, next) => {
-    console.log('Middleware - req.session (before res.locals):', req.session); // Ekledik
-    console.log('Middleware - req.session.user (before res.locals):', req.session.user); // Ekledik
-
-    res.locals.user = req.session.user || null;
-
-    console.log('Middleware - res.locals.user (after setting):', res.locals.user); // Ekledik
-    next();
-});
 
 
 // --- Rotalar ---
@@ -94,56 +99,56 @@ app.use((req, res, next) => {
 // Ana sayfa ve diğer statik sayfalar için GET rotaları
 app.get('/', (req, res) => res.render("index.ejs"));
 app.get('/about', (req, res) => res.render("about.ejs"));
+
+// Giriş rotası
 app.get('/signin', (req, res) => {
-    // req.session.userId kontrolü ile kullanıcının oturum açıp açmadığını kontrol et
-    if (req.session && req.session.userId) {
-        // Eğer kullanıcı zaten giriş yapmışsa, profil sayfasına yönlendir
+    // Eğer kullanıcı zaten giriş yapmışsa ve session.user.isLoggedIn true ise, profil sayfasına yönlendir
+    if (req.session && req.session.user && req.session.user.isLoggedIn) {
         return res.redirect('/profile');
     }
-    // Kullanıcı giriş yapmamışsa, signin sayfasını göster
-    const message = req.query.message; // URL'den mesajı al
-    res.render("signin_user.ejs", { message: message }); // Mesajı EJS'ye gönder
+    const message = req.query.message; 
+    res.render("signin_user.ejs", { message: message }); 
 });
+
 app.get('/signup', (req, res) => res.render("signup_user.ejs"));
 app.get('/contact', (req, res) => res.render("contact.ejs"));
-app.get('/destinations', (req, res) => res.render("chatbot.ejs"));
-app.get('/chatbot', (req, res) => res.render("chatbot.ejs"));
+app.get('/destinations', (req, res) => res.render("chatbot.ejs")); // Eğer chatbot.ejs ise
+app.get('/chatbot', (req, res) => res.render("chatbot.ejs")); // Aynı sayfayı farklı rota ile
 
-// *** YENİ EKLENEN KISIM: Profil Sayfası Rotası ***
-// Bu rotaya sadece giriş yapmış kullanıcılar erişebilmeli.
-// isAuthenticated middleware'ini buraya uyguluyoruz.
+// Profil Sayfası Rotası (isAuthenticated middleware'i ile korumalı)
 app.get('/profile', isAuthenticated, (req, res) => {
-    const username = req.session.username || 'Misafir';
-    res.render('profile', { username }); // req değil, username değişkeni geçiyoruz
+    // isAuthenticated middleware'inden geçtiği için req.session.user objesinin varlığından eminiz.
+    res.render('profile.ejs', { user: req.session.user }); 
 });
 
-// *** YENİ EKLENEN KISIM: Çıkış (Logout) Rotası ***
+// Çıkış (Logout) Rotası
 app.get('/logout', (req, res) => {
-    req.session.destroy(err => { // Oturumu sonlandır
+    req.session.destroy(err => { 
         if (err) {
             console.error('Oturum sonlandırma hatası:', err);
             return res.redirect('/');
         }
         res.clearCookie('connect.sid'); // Oturum çerezini temizle
-        res.redirect('/signin?message=CikisBasarili'); // Giriş sayfasına yönlendir
+        res.redirect('/signin?message=CikisBasarili'); 
     });
 });
 
-// <<< BURADA DEĞİŞİKLİK YAPILDI: async/await ve formatSQL kullanımı
+// Seyahat Taslağı Kaydetme Rotası (isAuthenticated middleware'i ile korumalı)
 app.post('/save-draft', isAuthenticated, async (req, res) => {
     const { title, content } = req.body;
-    const userId = req.session.userId; // session'dan kullanıcı ID'si
+    // userId'yi doğrudan req.session.user objesinden alıyoruz
+    const userId = req.session.user.userId; 
 
     if (!title || !content) {
         return res.status(400).json({ success: false, message: "Eksik veri: Başlık ve içerik gereklidir." });
     }
 
-    const currentDbDialect = process.env.DB_DIALECT || 'mysql'; // Mevcut veritabanı türünü al
+    const currentDbDialect = process.env.DB_DIALECT || 'mysql'; 
     const rawSql = "INSERT INTO travel_drafts (user_id, title, content) VALUES (?, ?, ?)";
-    const sql = formatSQL(rawSql, currentDbDialect); // formatSQL'i kullan
+    const sql = formatSQL(rawSql, currentDbDialect); 
 
     try {
-        await pool.query(sql, [userId, title, content]); // pool.query artık promise döner
+        await pool.query(sql, [userId, title, content]); 
         res.status(200).json({ success: true, message: "Seyahat planı başarıyla kaydedildi!" });
     } catch (err) {
         console.error("Veritabanı hatası:", err);
@@ -152,26 +157,23 @@ app.post('/save-draft', isAuthenticated, async (req, res) => {
 });
 
 // API Rotaları
-app.use('/api', chatbotRoutes); // Chatbot API rotaları
-app.use('/api/auth', authRoutes); // Auth (Login/Register) API Rotaları
+app.use('/api', chatbotRoutes); 
+app.use('/api/auth', authRoutes); 
 
-// Sunucu portu
-const port = process.env.PORT || 3000;
-
-// HTTP sunucusunu başlat
+// --- Sunucuyu Başlatma ---
 http.listen(port, '0.0.0.0', () => {
     console.log(`Sunucu çalışıyor, IP: ${'0.0.0.0'}, Port: ${port}`);
 });
 
 // --- Hata Yakalama Middleware'leri (En altta olmalı) ---
 
-// 404 sayfası yönlendirmesi (Tüm tanımlı rotalardan sonra gelmeli)
+// 404 sayfası yönlendirmesi
 app.use((req, res, next) => {
     res.status(404).render('404'); // '404.ejs' şablonunuz olmalı
 });
 
-// Hata yakalama middleware'i (Tüm diğer middleware ve rotalardan sonra gelmeli)
+// Hata yakalama middleware'i
 app.use((err, req, res, next) => {
-    console.error(err.stack); // Hata detaylarını konsola yazdır
-    res.status(500).render('404'); // Sunucu hatasında da 404 sayfasını göster (veya özel bir 500 sayfası)
+    console.error(err.stack); 
+    res.status(500).render('404'); // Veya özel bir 500 sayfası
 });
