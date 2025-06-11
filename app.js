@@ -114,6 +114,8 @@ app.get('/signup', (req, res) => res.render("signup_user.ejs"));
 app.get('/contact', (req, res) => res.render("contact.ejs"));
 app.get('/destinations', (req, res) => res.render("chatbot.ejs")); // Eğer chatbot.ejs ise
 app.get('/chatbot', (req, res) => res.render("chatbot.ejs")); // Aynı sayfayı farklı rota ile
+app.get('/routes_page', (req, res) => res.render("routes_page.ejs"))
+
 
 // Profil Sayfası Rotası (isAuthenticated middleware'i ile korumalı)
 app.get('/profile', isAuthenticated, async (req, res) => { // async ekledik
