@@ -72,19 +72,17 @@ const loginUser = async (req, res) => {
 
     try {
         const currentDbDialect = process.env.DB_DIALECT || 'mysql';
-        const rawSql = 'SELECT id, username, password_hash FROM users WHERE username = ?'; // password yerine password_hash kullanıyoruz
-        const sql = formatSQL(rawSql, currentDbDialect); // SQL sorgusunu veritabanı türüne göre formatla
+        const rawSql = 'SELECT id, username, password_hash FROM users WHERE username = ?';
+        const sql = formatSQL(rawSql, currentDbDialect);
 
-        // <<< BURADA DEĞİŞİKLİK YAPILDI: pool.execute yerine pool.query kullanıldı
         let rows;
         if (currentDbDialect === 'postgres') {
             const result = await pool.query(sql, [username]);
-            rows = result.rows; // PostgreSQL'de sonuçlar result.rows içinde gelir
+            rows = result.rows;
         } else {
             const [mysqlRows] = await pool.query(sql, [username]);
-            rows = mysqlRows; // MySQL'de ilk eleman doğrudan satırları içerir
+            rows = mysqlRows;
         }
-
 
         const user = rows[0];
 
@@ -92,17 +90,24 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı.' });
         }
 
-        // password_hash olarak değiştirildi
         const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı.' });
         }
 
-        // --- BURADA KULLANICI BİLGİSİNİ OTURUMA KAYDETME KISMI ---
-        req.session.userId = user.id;
-        req.session.username = user.username;
-        req.session.isLoggedIn = true;
+        // <<< ÖNEMLİ DEĞİŞİKLİK BURADA:
+        // Artık req.session.userId, req.session.username, req.session.isLoggedIn yerine
+        // TÜM BU BİLGİLERİ req.session.user objesi altında topluyoruz.
+        req.session.user = {
+            userId: user.id,
+            username: user.username,
+            isLoggedIn: true // Bu bayrak EJS'deki kontrol için hayati
+        };
+
+        // Debugging çıktısı (bu satırları düzelttikten sonra kaldırabilirsiniz)
+        console.log('Login successful. req.session after setting user object:', req.session);
+        console.log('Login successful. req.session.user object:', req.session.user);
 
         return res.status(200).json({ message: 'Giriş başarılı!', user: { id: user.id, username: user.username } });
 
@@ -111,7 +116,6 @@ const loginUser = async (req, res) => {
         return res.status(500).json({ message: 'Sunucu hatası: Giriş yapılamadı.' });
     }
 };
-
 module.exports = {
     registerUser,
     loginUser

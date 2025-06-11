@@ -79,7 +79,12 @@ function isAuthenticated(req, res, next) {
 }
 
 app.use((req, res, next) => {
+    console.log('Middleware - req.session (before res.locals):', req.session); // Ekledik
+    console.log('Middleware - req.session.user (before res.locals):', req.session.user); // Ekledik
+
     res.locals.user = req.session.user || null;
+
+    console.log('Middleware - res.locals.user (after setting):', res.locals.user); // Ekledik
     next();
 });
 
@@ -90,6 +95,12 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => res.render("index.ejs"));
 app.get('/about', (req, res) => res.render("about.ejs"));
 app.get('/signin', (req, res) => {
+    // req.session.userId kontrolü ile kullanıcının oturum açıp açmadığını kontrol et
+    if (req.session && req.session.userId) {
+        // Eğer kullanıcı zaten giriş yapmışsa, profil sayfasına yönlendir
+        return res.redirect('/profile');
+    }
+    // Kullanıcı giriş yapmamışsa, signin sayfasını göster
     const message = req.query.message; // URL'den mesajı al
     res.render("signin_user.ejs", { message: message }); // Mesajı EJS'ye gönder
 });
