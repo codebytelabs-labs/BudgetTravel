@@ -64,7 +64,7 @@ const registerUser = async (req, res) => {
 
 // Kullanıcı giriş fonksiyonu
 const loginUser = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.body; // Gelen 'username' alanı, hem kullanıcı adı hem de e-posta olabilir
 
     if (!username || !password) {
         return res.status(400).json({ message: 'Kullanıcı adı ve şifre zorunludur.' });
@@ -72,15 +72,19 @@ const loginUser = async (req, res) => {
 
     try {
         const currentDbDialect = process.env.DB_DIALECT || 'mysql';
-        const rawSql = 'SELECT id, username, password_hash FROM users WHERE username = ?';
+        // <<< BURADA ÖNEMLİ DEĞİŞİKLİK: Sorgu hem username hem de email'i kontrol ediyor
+        // Ayrıca SELECT ifadesine email'i de ekliyoruz, böylece kullanıcı objesinde email bilgisi de olur.
+        const rawSql = 'SELECT id, username, password_hash, email FROM users WHERE username = ? OR email = ?';
         const sql = formatSQL(rawSql, currentDbDialect);
 
         let rows;
         if (currentDbDialect === 'postgres') {
-            const result = await pool.query(sql, [username]);
+            // PostgreSQL'de iki parametre de aynı değeri alır
+            const result = await pool.query(sql, [username, username]); 
             rows = result.rows;
         } else {
-            const [mysqlRows] = await pool.query(sql, [username]);
+            // MySQL'de iki parametre de aynı değeri alır
+            const [mysqlRows] = await pool.query(sql, [username, username]); 
             rows = mysqlRows;
         }
 
@@ -96,20 +100,15 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Kullanıcı adı veya şifre hatalı.' });
         }
 
-        // <<< ÖNEMLİ DEĞİŞİKLİK BURADA:
-        // Artık req.session.userId, req.session.username, req.session.isLoggedIn yerine
-        // TÜM BU BİLGİLERİ req.session.user objesi altında topluyoruz.
+        // Oturum bilgilerini req.session.user objesi olarak sakla
         req.session.user = {
             userId: user.id,
             username: user.username,
-            isLoggedIn: true // Bu bayrak EJS'deki kontrol için hayati
+            email: user.email, // Email'i de oturum objesine ekliyoruz
+            isLoggedIn: true
         };
 
-        // Debugging çıktısı (bu satırları düzelttikten sonra kaldırabilirsiniz)
-        console.log('Login successful. req.session after setting user object:', req.session);
-        console.log('Login successful. req.session.user object:', req.session.user);
-
-        return res.status(200).json({ message: 'Giriş başarılı!', user: { id: user.id, username: user.username } });
+        return res.status(200).json({ message: 'Giriş başarılı!', user: { id: user.id, username: user.username, email: user.email } });
 
     } catch (error) {
         console.error('Giriş hatası:', error);
