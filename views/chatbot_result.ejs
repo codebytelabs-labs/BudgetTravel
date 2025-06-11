@@ -1,53 +1,54 @@
 <%- include('partials/_header_main') %>
 
-  <div class="ana-container-grid">
+<div class="ana-container-grid">
     <div id="chatbot-result-container" class="chatbot-result compact openai-style">
-      <h1 id="result-title" class="result-title">Oluşturulan Seyahat Planı</h1>
+        <h1 id="result-title" class="result-title">Oluşturulan Seyahat Planı</h1>
 
-      <div class="results-grid">
-        <div class="result-section" id="itinerary-section">
-          <h2 class="section-title">Seyahat Planı</h2>
-          <p class="section-content" id="itinerary-content">
-            <%= itinerary %>
-          </p>
-        </div>
+        <div class="results-grid">
+            <div class="result-section" id="itinerary-section">
+                <h2 class="section-title">Seyahat Planı</h2>
+                <p class="section-content" id="itinerary-content">
+                    <%= itinerary %>
+                </p>
+            </div>
 
-        <div class="result-section" id="flights-section">
-          <h2 class="section-title">Uçuşlar</h2>
-          <p class="section-content" id="flights-content">
-            <%= flights %>
-          </p>
-        </div>
+            <div class="result-section" id="flights-section">
+                <h2 class="section-title">Uçuşlar</h2>
+                <p class="section-content" id="flights-content">
+                    <%= flights %>
+                </p>
+            </div>
 
-        <div class="result-section" id="hotels-section">
-          <h2 class="section-title">Oteller</h2>
-          <p class="section-content" id="hotels-content">
-            <%= hotels %>
-          </p>
+            <div class="result-section" id="hotels-section">
+                <h2 class="section-title">Oteller</h2>
+                <p class="section-content" id="hotels-content">
+                    <%= hotels %>
+                </p>
+            </div>
         </div>
-      </div>
     </div>
-    <% if (typeof googleAttractions !=='undefined' && googleAttractions.length> 0) { %>
-      <div id="mekanlar-container" class="chatbot-result compact openai-style">
+    
+    <% if (typeof googleAttractions !=='undefined' && googleAttractions.length > 0) { %>
+    <div id="mekanlar-container" class="chatbot-result compact openai-style">
         <h1 class="result-title">Mekanlar</h1>
         <div class="results-grid">
-          <% googleAttractions.forEach(place=> { %>
+            <% googleAttractions.forEach(place => { %>
             <div class="result-section">
-              <h2 class="section-title">
-                <%= place.name %>
-              </h2>
-              <p class="section-content">
-                <%= place.formatted_address %><br />
-                  <strong>Rating:</strong>
-                  <%= place.rating %>
-              </p>
-              <% if (place.reviews && place.reviews.length> 0) { %>
+                <h2 class="section-title">
+                    <%= place.name %>
+                </h2>
+                <p class="section-content">
+                    <%= place.formatted_address %><br />
+                    <strong>Rating:</strong>
+                    <%= place.rating %>
+                </p>
+                <% if (place.reviews && place.reviews.length > 0) { %>
                 <ul>
-                  <% place.reviews.slice(0, 2).forEach(review=> { %>
+                    <% place.reviews.slice(0, 2).forEach(review => { %>
                     <li><strong>
-                        <%= review.author_name %>:
-                      </strong>
-                      <%= review.text %>
+                            <%= review.author_name %>:
+                        </strong>
+                        <%= review.text %>
                     </li>
                     <% }) %>
                 </ul>
@@ -55,49 +56,155 @@
             </div>
             <% }) %>
         </div>
-      </div>
-      <% } else { %>
-        <p class="section-content">Hiç mekan bulunamadı.</p>
-        <% } %>
+    </div>
+    <% } else { %>
+    <p class="section-content">Hiç mekan bulunamadı.</p>
+    <% } %>
 
-          <% if (typeof googleHotels !=='undefined' && googleHotels.length> 0) { %>
-            <div id="oteller-container" class="chatbot-result compact openai-style">
-              <h1 class="result-title">Oteller</h1>
-              <div class="results-grid">
-                <% googleHotels.forEach(hotel=> { %>
-                  <div class="result-section">
-                    <h2 class="section-title">
-                      <%= hotel.name %>
-                    </h2>
-                    <p class="section-content">
-                      <%= hotel.formatted_address %> - <%= hotel.rating %>⭐
-                    </p>
-                  </div>
-                  <% }) %>
-              </div>
+    <% if (typeof googleHotels !=='undefined' && googleHotels.length > 0) { %>
+    <div id="oteller-container" class="chatbot-result compact openai-style">
+        <h1 class="result-title">Oteller</h1>
+        <div class="results-grid">
+            <% googleHotels.forEach(hotel => { %>
+            <div class="result-section">
+                <h2 class="section-title">
+                    <%= hotel.name %>
+                </h2>
+                <p class="section-content">
+                    <%= hotel.formatted_address %> - <%= hotel.rating %>⭐
+                </p>
             </div>
-            <% } else { %>
-              <p>Hiç otel bulunamadı.</p>
-              <% } %>
-                <div id="ucuslar-container" class="chatbot-result compact openai-style">
-                  <h1 class="result-title">Uçuşlar</h1>
-                  <div class="results-grid">
-                    <div class="result-section">
-                      <h2 class="section-title">Uçuş 1</h2>
-                      <p class="section-content">Örnek uçuş açıklaması.</p>
-                    </div>
-                    <div class="result-section">
-                      <h2 class="section-title">Uçuş 2</h2>
-                      <p class="section-content">Örnek uçuş açıklaması.</p>
-                    </div>
-                  </div>
-                </div>
-                <form action="/save-draft" method="POST">
-                  <input type="hidden" name="title" value="Chatbot Planı">
-                  <textarea name="content" style="display: none;"><%= chatbotResult %></textarea>
-                  <button type="submit" class="btn btn-primary">Seyahat Planını Kaydet</button>
-                </form>
+            <% }) %>
+        </div>
+    </div>
+    <% } else { %>
+    <p>Hiç otel bulunamadı.</p>
+    <% } %>
+    
+    <div id="ucuslar-container" class="chatbot-result compact openai-style">
+        <h1 class="result-title">Uçuşlar</h1>
+        <div class="results-grid">
+            <div class="result-section">
+                <h2 class="section-title">Uçuş 1</h2>
+                <p class="section-content">Örnek uçuş açıklaması.</p>
+            </div>
+            <div class="result-section">
+                <h2 class="section-title">Uçuş 2</h2>
+                <p class="section-content">Örnek uçuş açıklaması.</p>
+            </div>
+        </div>
+    </div>
 
-  </div>
+    <div class="save-plan-section">
+        <div id="saveDraftMessage" class="message" style="display: none;"></div>
+        
+        <form id="saveDraftForm" class="save-draft-form">
+            <input type="hidden" name="title" value="Chatbot Oluşturulan Plan">
+            <textarea name="content" style="display: none;"><%= chatbotResult %></textarea>
+            <button type="submit" class="btn btn-primary save-button">Seyahat Planını Kaydet</button>
+        </form>
+    </div>
 
-  <%- include('partials/_footer_main') %>
+</div>
+
+<script>
+    // Mesaj divleri için CSS (eğer zaten style.css dosyanızda yoksa buraya ekleyin)
+    // En iyi uygulama, bu CSS'i genel bir CSS dosyasına taşımaktır (public/css/style.css gibi).
+    const style = document.createElement('style');
+    style.textContent = `
+        .save-plan-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .save-button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .save-button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    `;
+    document.head.appendChild(style);
+
+
+    // Taslak kaydetme formunu dinleyen JavaScript kodu
+    document.getElementById('saveDraftForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Formun varsayılan gönderimini engelle
+
+        const title = this.querySelector('[name="title"]').value; // hidden input'tan başlığı al
+        const content = this.querySelector('[name="content"]').value; // hidden textarea'dan içeriği al
+        const messageDiv = document.getElementById('saveDraftMessage'); // Mesaj div'i ID'si
+
+        // Önceki mesajları temizle ve gizle
+        messageDiv.innerHTML = '';
+        messageDiv.className = 'message'; 
+        messageDiv.style.display = 'none';
+
+        try {
+            const response = await fetch('/save-draft', { // app.js'deki POST endpoint'iniz
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, content })
+            });
+
+            const data = await response.json(); 
+
+            if (response.ok) { 
+                messageDiv.classList.add('success');
+                messageDiv.textContent = data.message || 'Taslak başarıyla kaydedildi!';
+                messageDiv.style.display = 'block';
+
+                // Form alanlarını temizlemeye gerek yok, çünkü hidden input ve textarea kullanılıyor.
+                // Eğer form alanlarını temizlemek isterseniz:
+                // this.reset(); // Bu, formdaki tüm inputları sıfırlar.
+
+                // Mesajı kısa bir süre sonra gizle
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                    messageDiv.textContent = '';
+                }, 3000); // 3 saniye sonra gizle
+
+            } else { 
+                messageDiv.classList.add('error');
+                messageDiv.textContent = data.message || 'Taslak kaydedilirken bir hata oluştu.';
+                messageDiv.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Taslak kaydetme işlemi sırasında hata oluştu:', error);
+            messageDiv.classList.add('error');
+            messageDiv.textContent = 'Bir hata oluştu. Sunucuya ulaşılamıyor veya ağ sorunu var.';
+            messageDiv.style.display = 'block';
+        }
+    });
+</script>
+
+<%- include('partials/_footer_main') %>

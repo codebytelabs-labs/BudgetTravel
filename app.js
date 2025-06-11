@@ -116,11 +116,32 @@ app.get('/destinations', (req, res) => res.render("chatbot.ejs")); // Eğer chat
 app.get('/chatbot', (req, res) => res.render("chatbot.ejs")); // Aynı sayfayı farklı rota ile
 
 // Profil Sayfası Rotası (isAuthenticated middleware'i ile korumalı)
-app.get('/profile', isAuthenticated, (req, res) => {
-    // isAuthenticated middleware'inden geçtiği için req.session.user objesinin varlığından eminiz.
-    res.render('profile.ejs', { user: req.session.user }); 
-});
+app.get('/profile', isAuthenticated, async (req, res) => { // async ekledik
+    try {
+        const userId = req.session.user.userId; // Oturumdan kullanıcı ID'sini al
 
+        const currentDbDialect = process.env.DB_DIALECT || 'mysql';
+        const rawSql = "SELECT id, title, content, created_at FROM travel_drafts WHERE user_id = ? ORDER BY created_at DESC";
+        const sql = formatSQL(rawSql, currentDbDialect);
+
+        let drafts;
+        if (currentDbDialect === 'postgres') {
+            const result = await pool.query(sql, [userId]);
+            drafts = result.rows;
+        } else {
+            const [rows] = await pool.query(sql, [userId]);
+            drafts = rows;
+        }
+        
+        // Profil sayfasına user objesi ve drafts (taslaklar) dizisini gönderiyoruz
+        res.render('profile.ejs', { user: req.session.user, drafts: drafts }); 
+
+    } catch (error) {
+        console.error('Profil sayfası yüklenirken taslaklar çekilemedi:', error);
+        // Hata durumunda bile profil sayfasını user objesiyle render et, ancak taslaklar boş olsun
+        res.render('profile.ejs', { user: req.session.user, drafts: [] }); 
+    }
+});
 // Çıkış (Logout) Rotası
 app.get('/logout', (req, res) => {
     req.session.destroy(err => { 

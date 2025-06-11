@@ -6,6 +6,118 @@
         background-color: #f7f8fa; /* Açık gri arka plan */
     }
 
+    /* BURAYA EKLENECEK YENİ STİLLER (veya public/css/style.css'e taşıyın) */
+    .message {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    /* Taslak Listesi Stilleri */
+    .drafts-section .content-section {
+        margin-top: 20px; /* Sekme içeriği için üst boşluk */
+    }
+    .draft-list {
+        list-style: none;
+        padding: 0;
+    }
+    .draft-item {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .draft-item h3 {
+        margin: 0 0 5px 0;
+        color: #333;
+    }
+    .draft-preview {
+        font-size: 0.9em;
+        color: #555;
+        line-height: 1.5;
+        max-height: 4.5em; /* 3 satır için (1.5em * 3) */
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        white-space: normal; 
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        align-self: flex-start; 
+        transition: background-color 0.3s ease;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    /* Modal (Pop-up) Stilleri */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; 
+        background-color: rgba(0,0,0,0.6); 
+        justify-content: center; 
+        align-items: center; 
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto; 
+        padding: 30px;
+        border: 1px solid #888;
+        border-radius: 10px;
+        width: 80%; 
+        max-width: 800px; 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        position: relative;
+        max-height: 90vh; 
+        overflow-y: auto; 
+    }
+    .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        cursor: pointer;
+    }
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-body {
+        margin-top: 20px;
+        white-space: pre-wrap; 
+        word-wrap: break-word; 
+    }
 </style>
 
 <div class="profile-container">
@@ -15,14 +127,17 @@
     </div>
 
     <div class="tab-navigation">
-        <button class="tab-button active" data-tab="travels">Seyehatlarım</button>
+        <button class="tab-button active" data-tab="travels">Seyahatlarım</button>
         <button class="tab-button" data-tab="drafts">Taslak Planlar</button>
         <button class="tab-button" data-tab="posts">Bloglar ve Postlar</button>
-        <button class="tab-button" data-tab="settings">Ayarlar</button> </div>
+        <button class="tab-button" data-tab="settings">Ayarlar</button> 
+    </div>
 
     <div id="travels" class="tab-content active">
         <div class="content-section">
+            <h1 style="color: red;">Yapılıyor</h1>
             <h3>Son Seyahatlerim</h3>
+            
             <ul class="content-list">
                 <li>
                     <span>Paris, Fransa</span>
@@ -44,24 +159,32 @@
 
     <div id="drafts" class="tab-content">
         <div class="content-section">
+
             <h3>Kaydedilmiş Taslak Planlarım</h3>
-            <ul class="content-list">
-                <li>
-                    <span>Doğu Anadolu Turu</span>
-                    <span class="date">Taslak</span>
-                </li>
-                <li>
-                    <span>Yunan Adaları Gezisi</span>
-                    <span class="date">Taslak</span>
-                </li>
-            </ul>
-            <p class="no-content" style="display: none;">Kaydedilmiş taslak planın yok.</p>
+            <% if (drafts && drafts.length > 0) { %>
+                <ul class="draft-list">
+                    <% drafts.forEach(draft => { %>
+                        <li class="draft-item">
+                            <h3><%= draft.title %></h3>
+                            <% 
+                                // İçeriğin ilk 150 karakterini al ve HTML etiketlerini temizle
+                                const plainContent = draft.content.replace(/<[^>]*>/g, '').substring(0, 150);
+                            %>
+                            <p class="draft-preview"><%= plainContent %>...</p>
+                            <button class="btn btn-secondary view-draft-btn" data-full-content="<%= encodeURIComponent(draft.content) %>">Önizle</button>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p class="no-content">Henüz kayıtlı bir taslak planınız bulunmamaktadır.</p>
+            <% } %>
             <a href="/draft-plans" class="view-all-link">Tüm Taslak Planları Gör &raquo;</a>
         </div>
     </div>
 
     <div id="posts" class="tab-content">
         <div class="content-section">
+            <h1 style="color: red;">Yapılıyor</h1>
             <h3>Blog Yazılarım</h3>
             <ul class="content-list">
                 <li>
@@ -80,16 +203,17 @@
 
     <div id="settings" class="tab-content">
         <div class="content-section">
+            <h1 style="color: red;">Yapılıyor</h1>
             <h3>Hesap Ayarları</h3>
             <div class="settings-grid">
                 <div class="setting-item">
                     <label for="setting-username">Kullanıcı Adı</label>
-                    <input type="text" id="setting-username" value="testuser" disabled>
+                    <input type="text" id="setting-username" value="<%= user.username %>" disabled>
                     <button>Değiştir (Yakında)</button>
                 </div>
                 <div class="setting-item">
                     <label for="setting-email">E-posta</label>
-                    <input type="email" id="setting-email" value="test@example.com">
+                    <input type="email" id="setting-email" value="<%= user.email %>">
                     <button>Kaydet</button>
                 </div>
                 <div class="setting-item">
@@ -99,19 +223,24 @@
                     <input type="password" id="setting-new-password">
                     <button>Şifreyi Değiştir</button>
                 </div>
-                </div>
+            </div>
             <p class="no-content" style="display: none;">Ayarlar burada.</p>
         </div>
     </div>
 
 </div>
 
+<div id="fullContentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <div id="modalContent" class="modal-body"></div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Kullanıcı adını dinamik olarak yükle
-        const usernameSpan = document.getElementById('profileUsername');
-        
-        // Tab Yönetimi JavaScript
+        // Tab Yönetimi JavaScript - Mevcut kodunuz
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
 
@@ -119,14 +248,10 @@
             button.addEventListener('click', () => {
                 const targetTab = button.dataset.tab;
 
-                // Tüm butonlardan 'active' sınıfını kaldır
                 tabButtons.forEach(btn => btn.classList.remove('active'));
-                // Tıklanan butona 'active' sınıfını ekle
                 button.classList.add('active');
 
-                // Tüm içerikleri gizle
                 tabContents.forEach(content => content.classList.remove('active'));
-                // Hedef içeriği göster
                 document.getElementById(targetTab).classList.add('active');
             });
         });
@@ -135,6 +260,49 @@
         if (tabButtons.length > 0) {
             tabButtons[0].click(); // İlk butona tıklayarak ilk sekmeyi aktif hale getir
         }
+
+        // Kullanıcı adı ve e-posta alanlarını dinamik olarak doldur (Ayarlar sekmesi için)
+        // Eğer kullanıcı objesi varsa bu alanları doldur
+        <% if (user) { %>
+            const settingUsernameInput = document.getElementById('setting-username');
+            const settingEmailInput = document.getElementById('setting-email');
+            if (settingUsernameInput) {
+                settingUsernameInput.value = "<%= user.username %>";
+            }
+            if (settingEmailInput) {
+                settingEmailInput.value = "<%= user.email %>";
+            }
+        <% } %>
+
+        // Pop-up Fonksiyonelliği - Yeni eklenen kod
+        const modal = document.getElementById('fullContentModal');
+        const closeButton = document.querySelector('.close-button');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+
+        // Tüm "Önizle" butonlarını dinle
+        document.querySelectorAll('.view-draft-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const fullContent = decodeURIComponent(this.dataset.fullContent);
+                const draftTitle = this.closest('.draft-item').querySelector('h3').textContent;
+
+                modalTitle.textContent = draftTitle;
+                modalContent.textContent = fullContent;
+                modal.style.display = 'flex'; // Modalı görünür yap
+            });
+        });
+
+        // Kapatma butonu
+        closeButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Modal dışına tıklayınca kapatma
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     });
 </script>
 
